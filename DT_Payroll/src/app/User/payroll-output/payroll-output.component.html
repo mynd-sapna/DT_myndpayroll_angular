@@ -1,0 +1,127 @@
+<div class="container-fluid px-5 mb-5">
+  <div class="process-box mt-5">
+    <form (ngSubmit)="submitData()" [formGroup]="downloadForm">
+      <div class="jumbotron">
+        <h1>Payroll Output</h1>
+        <p>
+          You can download your output sheets here.
+        </p>
+      </div>
+      <p>Please select a company.</p>
+      <div class="row ms-5">
+        <div class="col-4 mb-4">
+          <label>select company</label>
+          <br>
+          <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'" id="company"
+            [settings]="dropdownSettings" [data]="companylst?.Companies" class="singleselect"></ng-multiselect-dropdown>
+
+          <div
+            *ngIf="downloadForm.get('company').invalid && (downloadForm.get('company').dirty || downloadForm.get('company').touched)"
+            class="error mt-1">
+            <div *ngIf="downloadForm.get('company').errors.required">
+              Company is required
+            </div>
+          </div>
+        </div>
+        <div class="col-4 mb-4">
+          <label>select File Type</label> <br>
+          <select formControlName="filetype" id="type" required>
+            <option value="null">Select file type</option>
+            <option value="InvestmentProof-ChapterVIA">InvestmentProof-ChapterVIA</option>
+            <option value="RentDetails">RentDetails</option>
+            <option value="HousePropertyDetails">HousePropertyDetails</option>
+          </select>
+          <div
+            *ngIf="downloadForm.get('filetype').invalid && (downloadForm.get('filetype').dirty || downloadForm.get('filetype').touched)"
+            class="error mt-1">
+            <div *ngIf="downloadForm.get('filetype').errors.required">
+              filetype is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-default">
+          Submit
+          <span>
+            <div class="spinner-border" [hidden]="loaderHidden" id="loader" role="status"></div>
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="process-box">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="d-inline-block float-left mt-2">
+          <h5>Pending Cases Download</h5>
+        </div>
+        <div class="d-inline-block my-2 float-end">
+          <button class="btn btn-primary btn-default" (click)="downloadPending('Download Pending')">
+            Download
+            Pending
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="process-box">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="d-inline-block float-left mt-2">
+          <h5>Processed Cases Download</h5>
+        </div>
+        <div class="d-inline-block my-2 float-end">
+          <button class="btn btn-primary btn-default" (click)="downloadPending('Download Processed')">
+            Download
+            Processed
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="process-box">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="d-inline-block my-2 float-left mt-2">
+          <h5>Red Green Stats</h5>
+        </div>
+        <div class="d-inline-block float-end">
+          <button class="btn btn-primary btn-default" (click)="downloadRedGreen()">
+            Download Red Green Stats
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="process-box">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="d-inline-block my-2 float-left mt-2">
+          <h5>Missing File Download</h5>
+        </div>
+        <div class="d-inline-block float-end">
+          <button class="btn btn-primary btn-default" (click)="downloadMissingFile()">
+            Download Missing File
+            Report
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="process-box mb-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="d-inline-block float-left mt-2">
+          <h5>Missing object Download</h5>
+        </div>
+        <div class="d-inline-block float-end">
+          <button class="btn btn-primary btn-default" (click)="downloadMissingObject()">
+            Download Missing Objects
+            Report
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

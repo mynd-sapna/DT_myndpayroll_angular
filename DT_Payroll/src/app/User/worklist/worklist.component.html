@@ -1,0 +1,42 @@
+<div *ngIf="vLoading" class="spinner-container">
+  <mat-spinner diameter="20"></mat-spinner>
+  <span class="loading-text">Loading...</span>
+</div>
+<div class="container-fluid display: flex;">
+  <div class="container left-align  mt-5 process-box2 ms-5">
+    <div class="my-2">{{ 'Total Assigned: ' + (verified + pending) }}</div>
+    <div class="my-2">{{ 'Total Verified: ' + verified }}</div>
+    <div>{{ 'Total Pending: ' + pending }}</div>
+  </div>
+  <div class="right-align  my-4 process-box ms-5 table-responsive">
+    <table mat-table [dataSource]="dataSource" class="table align-middle table-hover table-bordered">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> S.No. </th>
+        <td mat-cell class="text-center" *matCellDef="let element"> {{ element.id }} </td>
+      </ng-container>
+      <ng-container matColumnDef="filename">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> File Name</th>
+        <td mat-cell class="text-center" *matCellDef="let element"> {{ element.filename
+          }} </td>
+      </ng-container>
+      <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Company</th>
+        <td mat-cell class="text-center" *matCellDef="let element"> {{ element.company}} </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="text-center">Action</th>
+        <td mat-cell class="text-center" *matCellDef="let element">
+          <button class="positives-btn" (click)="viewQueueItem(element.id)"> <span *ngIf="!vLoading">View</span>
+            <mat-spinner diameter="20" *ngIf="vLoading"></mat-spinner>
+            
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div style="text-align: center;" *ngIf="dataSource && dataSource.length === 0">
+      Sorry! No Results found
+    </div>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+.process-box {
+  box-shadow: 0 1px 2px 0 rgba(34, 36, 38, .15);
+  margin: 1rem 0;
+  padding: 1em;
+  border-radius: 8px;
+  border: 1px solid rgba(34, 36, 38, .15);
+  background: #fff;
+}
+
+input {
+  cursor: pointer;
+  text-align: center;
+  word-wrap: break-word;
+  line-height: 1em;
+  width: 250px;
+  white-space: normal;
+  outline: 0;
+  height: 40px;
+  background: #fff;
+  display: inline-block;
+  color: rgba(0, 0, 0, .87);
+  border: 1px solid rgba(34, 36, 38, .15);
+  border-radius: 0.28571429rem;
+}
+
+select {
+  cursor: pointer;
+  text-align: center;
+  line-height: 1em;
+  width: 250px;
+  white-space: normal;
+  outline: 0;
+  height: 40px;
+  background: #fff;
+  display: inline-block;
+  color: rgba(0, 0, 0, .87);
+  border: 1px solid rgba(34, 36, 38, .15);
+  border-radius: 0.28571429rem;
+}
+
+.positives-btn {
+  background-color: #21ba45;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 8px;
+  outline: 0;
+  border: none;
+  border-radius: 6px;
+  margin-top: 0;
+}
+
+.table-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 30%;
+}
+
+thead {
+  text-align: center;
+  color: #454545;
+  font-weight: 500;
+  padding: 10px;
+  font-size: 16px;
+}
+
+tbody {
+  text-align: center;
+  color: #454545;
+  font-weight: 400;
+  padding: 10px;
+  font-size: 13px;
+}
+
+tfoot {
+  text-align: center;
+  text-align: center;
+  color: #454545;
+  font-weight: 500;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.error {
+  color: red;
+  margin-top: 0;
+  margin-bottom: 2px;
+  width: 210px;
+  text-align: center;
+  border-radius: 6px;
+  margin-left: 10px;
+}
+.customClass{
+
+}

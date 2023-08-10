@@ -1,0 +1,33 @@
+<mat-card class="login-card bg-blue ">
+  <mat-card-title>Create a New User !
+  <!-- <button mat-icon-button class="close-button" (click)="closeAll()" class="close-button">
+    <mat-icon>close</mat-icon>
+  </button> -->
+</mat-card-title>
+  <mat-card-content class="center">
+    <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+      <div>
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput placeholder="username" formControlName="username" />
+          <small *ngIf="!createUserForm.get('username').valid && createUserForm.get('username').touched"
+            class="form-text w-100 text-danger">Please enter username</small>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" />
+          <small *ngIf="!createUserForm.get('password').valid && createUserForm.get('password').touched"
+            class="form-text w-100 text-danger">Please enter password</small>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button class="login-button" [disabled]="onloading" (click)="closeAll()">
+        <span *ngIf="!onloading">Create User</span>
+        <mat-spinner *ngIf="onloading" diameter="20" class="login-spinner"></mat-spinner>
+      </button>
+    </form>
+    <!-- In your component template -->
+  </mat-card-content>
+
+</mat-card>

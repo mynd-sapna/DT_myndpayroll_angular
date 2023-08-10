@@ -1,0 +1,154 @@
+<div class="container my-5">
+  <div style="display: flex; justify-content: flex-end" class="mt-5">
+    <!-- <button mat-flat-button class="btn_prime outlined-btn" (click)="uploadFile()">
+      <span class="btn-text">Upload Files</span>
+    </button> -->
+    <button mat-flat-button class="positives-btn mt-4" (click)="createCompany()">
+      <mat-icon>add</mat-icon>
+      <span class>Create New Company</span>
+    </button>
+  </div>
+  <table class="table table-bordered bg-light mt-5 custom-table">
+    <thead>
+      <tr class="text-center">
+        <th>S.no</th>
+        <th>Filetype</th>
+        <th>Company Name</th>
+        <th>Sample</th>
+        <th>Select File</th>
+        <th>Upload</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <tr>
+        <td>1</td>
+          <td>
+       <h6>Master File</h6>
+          </td>
+          <td>
+            <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
+              [settings]="dropdownSettings" [data]="data?.Companies" class="singleselect">
+            </ng-multiselect-dropdown>
+          </td>
+          <td>
+            <label class="custom-file-upload">
+              <a href="/client-app/src/assets/Files/1Chapter%20(6A)%20G4SIND_MS12672_20230123002736_Report.xlsx"
+                download>
+                <span class="material-icons">file_download</span>
+                Download Sample
+              </a>
+            </label>
+          </td>
+          <td>
+            <label class="custom-file-upload">
+              <input type="file" (change)="onFileChange($event)" />
+              <span class="material-icons text-primary">attach_file</span>
+              Attach File
+            </label>
+          </td>
+          <td>
+            <div class="progress form-group" *ngIf="progress > 0">
+              <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
+              </div>
+            </div>
+            <button class="btn btn-primary ms-5 px-5" (click)="masterfileUpload(data)">
+              <span class="material-icons">file_upload</span>Upload
+            </button>
+          </td>
+          </tr>
+        <tr>
+          <td>2</td>
+        <td>
+         <h6>House File</h6>
+        </td>
+        <td>
+          <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
+            [settings]="dropdownSettings" [data]="data?.Companies" class="singleselect">
+          </ng-multiselect-dropdown>
+        </td>
+        <td>
+          <label class="custom-file-upload">
+            <a href="#">
+              <span class="material-icons">file_download</span>
+              Download Sample
+            </a>
+          </label>
+        </td>
+        <td>
+          <label class="custom-file-upload">
+            <input type="file" (change)="onFileChange($event)" />
+            <span class="material-icons text-primary">attach_file</span>
+            Attach File
+          </label>
+        </td>
+        <td>
+          <button class="btn btn-primary ms-5 px-5" (click)="rentfileUpload(data)" >
+            <span class="material-icons">file_upload</span>Upload
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>
+          <h6>Rent File</h6>
+        </td>
+        <td>
+          <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
+            [settings]="dropdownSettings" [data]="data?.Companies" class="singleselect">
+          </ng-multiselect-dropdown>
+        </td>
+        <td>
+          <label class="custom-file-upload">
+            <a href="#">
+              <span class="material-icons">file_download</span>
+              Download Sample
+            </a>
+          </label>
+        </td>
+        <td>
+          <label class="custom-file-upload">
+            <input type="file" (change)="onFileChange($event)" />
+            <span class="material-icons text-primary">attach_file</span>
+            Attach File
+          </label>
+        </td>
+        <td>
+          <button class="btn btn-primary ms-5 px-5" (click)="chapterfileUpload(data)" >
+            <span class="material-icons">file_upload</span> Upload
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>
+        <h6>Chapter File</h6>
+        </td>
+        <td>
+          <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
+            [settings]="dropdownSettings" [data]="data?.Companies" class="singleselect">
+          </ng-multiselect-dropdown>
+        </td>
+        <td>
+          <label class="custom-file-upload">
+            <a href="#">
+              <span class="material-icons">file_download</span>
+              Download Sample
+            </a>
+          </label>
+        </td>
+        <td>
+          <label class="custom-file-upload">
+            <input type="file" (change)="onFileChange($event)" />
+            <span class="material-icons text-primary">attach_file</span>
+            Attach File
+          </label>
+        </td>
+        <td>
+          <button class="btn btn-primary ms-5 px-5" (click)="housefileUpload(data)">
+            <span class="material-icons">file_upload</span>Upload
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

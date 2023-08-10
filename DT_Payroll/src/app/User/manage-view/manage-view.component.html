@@ -1,0 +1,199 @@
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col-12 col-sm-9">
+      <div class="process-box">
+        <div class="col-sm-12" style="overflow: scroll;height:70vh">
+          <div class="Content" #imageElement>
+            <img src="" alt="Image">
+          </div>
+        </div>
+        <div style="margin-left: 10px; margin-top:10px;">
+          <input type="number" name id="total" [(ngModel)]="total">
+          <button class="btn btn-outline-success ms-2 mx-2" (click)="copyTotal()">
+            Copy
+          </button>
+          <button class="btn btn-outline-danger me-2" (click)="clearTotal()">
+            Clear
+          </button>
+          <button class="btn btn-outline-primary me-2" (click)="undo()">
+            <span class="badge badge-secondary me-2" id="undoValue">
+              {{
+              undoValue }}
+            </span>
+            &nbsp;Undo
+          </button>
+          <ng-container *ngIf="'*,*' not in filepath">
+            <a class="btn btn-outline-success" [href]="filepath">
+              Image source
+            </a>
+          </ng-container>
+          <br>
+          <input type="number" name id="addToTotal" [(ngModel)]="addToTotal">
+          <button class="btn btn-success mx-2" style="margin-top: 10px" (click)="addToTotal()">
+            Add
+          </button>
+          <button class="btn btn-secondary me-2" style="margin-top: 10px" (click)="zoomIn()" id="zoomIn">
+            Zoom
+            In
+          </button>
+          <button class="btn btn-secondary me-2" style="margin-top: 10px" (click)="zoomOut()" id="zoomOut">
+            Zoom
+            Out
+          </button>
+          <button class="btn btn-primary" style="margin-top:10px" (click)=" rotate()">
+            Rotate
+          </button>
+        </div>
+        <div id="vertices" style="display: none">
+          {{ vertices }}
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-3" style="overflow-y: auto; height: 100vh;">
+      <div class="process-box">
+        <div class="container p-0 m-0">
+          <div class="row">
+            <div class="col-4">
+              <div [appVerification]="fileData.File_data.extractedData?.is_date">
+                Date Verified
+              </div>
+            </div>
+            <div class="col-4">
+              <div [appVerification]="fileData.File_data.extractedData?.is_name">
+                Name Verified
+              </div>
+            </div>
+            <div class="col-4">
+              <div [appVerification]="fileData.File_data.extractedData?.is_val">
+                Amount Verified
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-box">
+        <form [formGroup]="panelform" (ngSubmit)="onSubmit()">
+          <h5>Data Panel</h5>
+          <label>Name</label>
+          <input type="text" class="in-box mb-2" formControlName="name">
+          <div class="row">
+            <div class="col-6">
+              <label>Emp Code</label>
+              <input type="text" class="in-box mb-2" formControlName="empCode">
+            </div>
+            <div class="col-6">
+              <label>Declared Amount</label>
+              <input type="text" class="in-box mb-2" formControlName="declaredAmount">
+            </div>
+
+            <div *ngIf="fileData.File_data.filetype_id === 'Rent'" class="grid-column">
+              <label>Date From</label>
+              <input type="date" formControlName="dateFrom" class="in-box mb-2">
+            </div>
+            <div *ngIf="fileData.File_data.filetype_id === 'Rent'" class="grid-column">
+              <label>Date To</label>
+              <input type="date" formControlName="dateTo" class="in-box mb-2">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="process-box">
+        <form [formGroup]="extractForm" (ngSubmit)="Exsubmit()">
+          <h5>Extracted Data</h5>
+          <div class="mb-1">
+            <label>Approved Amount</label>
+            <input type="text" formControlName="amountApproved" placeholder="Approved Amount" />
+            <div *ngIf="extractForm.get('amountApproved').invalid && extractForm.get('amountApproved').touched">
+              Approved Amount is required
+            </div>
+          </div>
+          <div class="mb-1">
+            <label for="filetype">File Type</label>
+            <select id="filetype" formControlName="filetypeActual" placeholder="File Type" class="in-box">
+              <option *ngFor="let option of fileData.file_types" [value]="option.filetype">
+                {{ option.filetype }}
+              </option>
+            </select>
+            <div *ngIf="extractForm.get('filetypeActual').invalid && extractForm.get('filetypeActual').touched"
+              style="color: red;">
+              File Type is required
+            </div>
+          </div>
+          <div *ngIf="fileData.File_data.filetype_id.toLowerCase() === 'rent'">
+            <label>From Date</label>
+            <input type="date" formControlName="fromDateActual" placeholder="from date" class="in-box mb-2" />
+            <label>To Date</label>
+            <input type="date" formControlName="toDateActual" placeholder="to date" class="in-box mb-2" />
+            <div>
+              <label>Metro</label>
+              <div style="display: flex;">
+                <label style="padding: 10px">
+                  <input type="radio" formControlName="metro" value="Y" /> Yes
+                </label>
+                <label style="padding: 10px">
+                  <input type="radio" formControlName="metro" value="N" /> No
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mb-1">
+            <label for="remark">Remarks</label>
+            <select id="remark" formControlName="remarks" class="in-box">
+                <option *ngFor="let remark of fileData.file_types" [value]="remark.remarks">
+                  {{ remark.remarks }}
+                </option>
+              </select>
+
+            <div style="color:red"
+              *ngIf="extractForm.controls['remarks'].errors && extractForm.controls['remarks'].touched">
+              field is required
+            </div>
+          </div>
+          <div class="mb-1">
+            <label for="cus_remark">Custom Remarks</label>
+            <textarea id="cus_remark" placeholder="Enter Custom Remarks" formControlName="c_remarks"
+              class="in-box "></textarea>
+            <div style="color:red"
+              *ngIf="extractForm.controls['c_remarks'].errors && extractForm.controls['c_remarks'].touched">
+              field is required
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success" (click)="
+            verifyFile()" style="background-color:#21ba45; border: none;" [disabled]="extractForm.invalid">Verify
+            <!--<span *ngIf="!loading"> Verify</span> -->
+            <!-- <mat-spinner class="custom-spinner" diameter="20" *ngIf="loading"></mat-spinner> -->
+          </button>
+        </form>
+      </div>
+      <div class="process-box">
+        <h5>Other Data:</h5>
+        <div class="container">
+          <div [formGroup]="otherform">
+            <div class="row mb-4">
+              <label>Ref_No:</label>
+              <input type="text" formControlName="Ref_No" id="" class="mb-3">
+              <label>Metro:</label>
+              <input type="text" formControlName="Metro" id="" class="mb-3">
+              <label>UpdatedOn:</label>
+              <input type="text" formControlName="UpdatedOn" id="" class="mb-3">
+              <label>UpdatedBy:</label>
+              <input type="text" formControlName="UpdatedBy" id="" class="mb-3">
+              <label>CreatedOn:</label>
+              <input type="text" formControlName="CreatedOn" id="" class="mb-3">
+              <label>CreatedBy:</label>
+              <input type="text" formControlName="CreatedBy" id="" class="mb-3">
+              <label>RowVersion:</label>
+              <input type="text" formControlName="RowVersion" id="" class="mb-3">
+              <label>Rent_Address:</label>
+              <input type="text" formControlName="Rent_Address" id="" class="mb-3">
+              <label>LL_Name :</label>
+              <input type="text" formControlName="RowVersion" id="" class="mb-3">
+              <label>LL_Addres :</label>
+              <input type="text" formControlName="LL_Address" id="" class="mb-3">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

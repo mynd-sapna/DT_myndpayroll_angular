@@ -1,0 +1,52 @@
+
+ <div style="display:flex;flex-direction:row;justify-content:space-between" class="dialog-header">
+    <h2 mat-dialog-title class="title-text">
+      Upload Company </h2>
+    <button mat-icon-button mat-dialog-close class="cancel-button">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+
+    <div mat-dialog-content style="min-height:200px !important; min-width:600px!important;overflow-x: hidden !important;">
+      <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+      <div style="display:flex;flex-direction:row;justify-content:space-between">
+        <div style="width:45% !important">
+          <label class="label">Select Company</label>
+          <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'" [settings]="dropdownSettings" [data]="data?.Companies" class="singleselect" >
+          </ng-multiselect-dropdown>
+          <div *ngIf="uploadForm.get('company').invalid && uploadForm.get('company').touched" class="error">
+            Please select a company.
+          </div>
+        </div>
+        <div style="width:45% !important">
+          <label class="label">File Type</label>
+          <ng-multiselect-dropdown formControlName="filetype" [placeholder]="'Select File Type'" [settings]="dropdownSettingsb" [data]="filetypes" class="singleselect" >
+          </ng-multiselect-dropdown>
+          <div *ngIf="uploadForm.get('filetype').invalid && uploadForm.get('filetype').touched" class="error">
+            Please select a file type.
+          </div>    
+        </div>
+      </div>
+    </form>
+      <div style="display:flex;flex-direction:row;justify-content:space-between;">
+        <div>
+          <button class="btn mt-5"  #downloadLink (click)="callYourAPI(uploadForm.value.company, uploadForm.value.filetype)"><span class="material-icons mx-2" style="font-size: 18px; margin-top:10px;" > file_download </span>Download sample</button>
+        </div>
+        <div>
+          <label for="file-input" class="btn mt-5">
+            <mat-icon style="font-size: 20px;" class="material-icons mt-2 mx-2">attach_file</mat-icon> Select File
+          </label>
+          <input type="file" id="file-input" (change)="onFileSelected($event)" #fileInput style="display: none;" />
+          <span *ngIf="selectedFile" class="file-name">{{ selectedFile.name }}</span>
+          <div *ngIf="fileInputInvalid && fileInputTouched" class="error-message">
+            Please select a file.
+          </div>
+          <br>
+          <button class="btn mt-3" type="submit" (click)="onUpload()"><span class="material-icons mx-2" style="font-size:15px; margin-top:10px;">file_upload</span>Upload</button>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions class="my-4">
+      <button class="btn mt-3 px-4 ms-5"  [disabled]="uploadForm.invalid">Process</button>
+    </div>
+

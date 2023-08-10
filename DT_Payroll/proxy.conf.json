@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+    "target": "https://idppayroll.myndsolution.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
+

@@ -1,0 +1,57 @@
+
+.cle-btn {
+  border: 1px solid black;
+  border: none;
+  background-color: #0da1f0;
+  color: white;
+  padding: 5px 10px;
+  margin-left: 10px;
+}
+.save-btn {
+  border: none;
+  background-color: #0da1f0;
+  color: white;
+  padding: 5px 10px;
+  margin-left: 10px;
+}
+.title-text {
+  font-weight: bold;
+  font-size: 20px;
+  color:white;
+}
+.label {
+  font-size:20px;
+  font-weight:600;
+  margin-top: 30px;
+  margin-bottom:10px;
+}
+.btn {
+  display: flex;
+  text-decoration: none;
+  background-color: #0da1f0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 19px;
+}
+.error {
+  color: red;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  width: 210px;
+  text-align: center;
+  border-radius: 6px;
+
+}
+
+
+.file-name {
+  margin-left: 8px;
+  font-size: 14px;
+  flex: 1; /* Allow the file name to take the remaining space */
+  text-align: center; /* Center the file name horizontally within the button */
+  white-space: nowrap; /* Prevent the file name from wrapping to a new line */
+  overflow: hidden; /* Hide any overflowed text */
+  text-overflow: ellipsis; /* Add an ellipsis (...) for truncated text */
+  /* Add any other custom styles you want for the file name display */
+}

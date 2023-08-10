@@ -1,0 +1,54 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "user": {
+        "username": "scdvf",
+        "password": "xscdvf",
+        "id": 0
+      },
+      "id": 15
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "logout": {
+    "id": 0
+  },
+  "users": [
+    {
+      "username": "sapna",
+      "password": "sapna",
+      "id": 29
+    },
+    {
+      "username": "admin",
+      "password": "admin",
+      "id": 30
+    },
+    {
+      "username": "admin",
+      "password": "admin",
+      "id": 31
+    },
+    {
+      "username": "admin",
+      "password": "admin",
+      "id": 32
+    },
+    {
+      "username": "axcdf v",
+      "password": "axscd ",
+      "id": 33
+    }
+  ]
+}

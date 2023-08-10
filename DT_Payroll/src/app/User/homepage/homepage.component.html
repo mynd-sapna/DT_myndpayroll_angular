@@ -1,0 +1,68 @@
+<div class="container-fluid bg-blue text-white" [ngClass]="{ 'inverted': isLoggedIn }">
+  <div class="row align-items: center; display: flex; justify-content: center;">
+    <div class="col-12 text-center mb-5" style="margin-top: 32vh;">
+      <img src="./assets/images/logo.png" class="logo-img" height="20px" alt="logo">
+      <span class="payrol mb-3">Payroll</span>
+      <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+        <h2 class="sub-header">Welcome back {{ user?.username }} !</h2> <!-- Use safe navigation operator here -->
+        <button *ngIf="!user?.admin; else adminButton" routerLink="/worklist"  class="btn btn-lg btn-white mb-4 px-4 py-3">
+          Got to your queue
+        </button>
+        <ng-template #adminButton>
+        <button *ngIf="user.admin" routerLink="/allocation" class="btn btn-lg btn-white mb-4 px-4 py-3">Got to your allocation page</button>
+        </ng-template>
+      </ng-container>
+      <ng-template #notLoggedIn>
+        <h2 class="sub-header">Welcome!</h2>
+        <button class="btn btn-lg btn-white mb-4 px-5  py-3" (click)="login()">Login</button>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ng-container *ngIf="!isLoggedIn && user">
+
+        <h3 class="welc mt-4 mb-3">Welcome back {{ user.username}}!</h3>
+        <button *ngIf="!user.admin" routerLink="/worklist" class="huge-button">Go to your queue</button>
+        <button *ngIf="user.admin" routerLink="/admin/allocate" class="huge-button">Go to your allocation page</button>
+      </ng-container>
+
+      <ng-container *ngIf="!isLoggedIn || !user">
+        <h2 class="welcome-message">Welcome!</h2>
+        <button class="btn btn-lg btn-white mb-4 px-3 py-2" (click)="login()">Login</button>
+          <button *ngIf="!user" routerLink="/worklist" class="btn btn-lg btn-white mb-4 ">Go to your queue</button>
+        <button *ngIf="!user" routerLink="/allocation" class="btn btn-lg btn-white mb-4 px-3 py-2" >Go to your allocation page</button>
+      </ng-container>
+    </div>
+  </div>
+</div> -->

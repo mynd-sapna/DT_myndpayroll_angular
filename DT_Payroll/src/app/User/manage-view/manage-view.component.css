@@ -1,0 +1,127 @@
+
+.process-box {
+  box-shadow: 0 1px 2px 0 rgba(34, 36, 38, .15);
+  margin: 1rem 0;
+  padding: 1em;
+  border-radius: 4px;
+  border: 1px solid rgba(34, 36, 38, .15);
+  background: #fff;
+}
+
+.green{
+  background-color: #21ba45 !important;
+  border-color: #21ba45 !important;
+  border-radius: 4px;
+  color: #fff !important;
+  width:70px !important;
+  font-size:13px;
+  font-weight: 500;
+  padding-left: 10px;
+}
+.red {
+  background-color: #db2828!important;
+  border-color: #db2828!important;
+  border-radius: 4px;
+  color: #fff !important;
+  width:70px !important;
+  font-size:13px;
+  font-weight: 500;
+  padding-left: 10px;
+}
+
+.in-box {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 35px;
+  font-weight: 400;
+  color: #333;
+  font-size: small;
+}
+
+.in-box2 {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 120px;
+  height: 35px;
+  font-weight: 400;
+  color: #333;
+  font-size: small;
+}
+
+label {
+  width: 100%;
+  font-weight: 400;
+  color: #333;
+  font-size: small;
+
+}
+
+.c-2 {
+
+  font-weight: 400;
+  color: #fff;
+  font-size: small;
+  padding: 5px;
+  line-height: 1;
+  margin-right: 0 0.14285714em;
+  background-image: none;
+  padding: 0.5833em 0.833em;
+
+}
+
+.positives-btn2 {
+  background-color: #21ba45;
+  color: #fff;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  width: 70px;
+  height: 31px;
+}
+
+.process-box2 {
+  padding: 5px;
+  background: #fff;
+  font-weight: 400;
+  color: #333;
+  font-size: small;
+  border-radius: 3px;
+  border: 1px solid rgba(34, 36, 38, .15);
+  background: #fff;
+}
+.error{
+  color:red;
+  margin-top: 0;
+  margin-bottom: 2px; width: 210px;
+  text-align: center;
+  border-radius: 6px;
+  margin-left: 10px;
+}
+
+
+.custom-spinner .mat-spinner-circle {
+  stroke: white; /* Change the color to red */
+  animation: custom-spin 1.4s linear infinite;
+  stroke: red; /* Change the stroke color to red */
+}
+@keyframes custom-spin {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}

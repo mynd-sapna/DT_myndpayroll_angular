@@ -1,0 +1,87 @@
+.process-box {
+  box-shadow: 0 1px 2px 0 rgba(34, 36, 38, .15);
+  margin: 1rem 0;
+  padding: 1em;
+  border-radius: 8px;
+  border: 1px solid rgba(34, 36, 38, .15);
+  background: #fff;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 100vh;
+  background-color: #f1f1f1;
+}
+
+input {
+  cursor: pointer;
+  word-wrap: break-word;
+  line-height: 1em;
+  width: 250px;
+  white-space: normal;
+  outline: 0;
+  height: 40px;
+  background: #fff;
+  display: inline-block;
+  color: rgba(0, 0, 0, .87);
+  border: 1px solid rgba(34, 36, 38, .15);
+  border-radius: 0.28571429rem;
+}
+
+.positive-btn {
+  background-color: #21ba45;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 5px;
+  outline: 0;
+  border: none;
+  border-radius: 6px;
+
+}
+
+label {
+  display: block;
+  margin-bottom: 0%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(34, 36, 38, .15);
+  font-size: 16px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, .87);
+  line-height: 1em;
+  outline: 0;
+  text-align: center;
+}
+
+.mat-icon {
+  font-size: 17px;
+  width: 30px;
+  height: 14px;
+  color: white;
+  margin-left: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.error {
+  color: red;
+  margin-top: 0;
+  margin-bottom: 2px;
+  width: 210px;
+  text-align: center;
+  border-radius: 6px;
+  margin-left: 10px;
+}

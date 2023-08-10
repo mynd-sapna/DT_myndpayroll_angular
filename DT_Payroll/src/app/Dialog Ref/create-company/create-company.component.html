@@ -1,0 +1,25 @@
+<div>
+  <div style="display:flex;flex-direction:row;justify-content:space-between" class="dialog-header">
+    <h2 mat-dialog-title class="title-text">
+      Create Company </h2>
+    <button mat-icon-button mat-dialog-close class="cancel-button">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content class="text-center"
+    style="min-height: 100px !important; min-width: 400px !important; overflow: hidden !important;">
+    <form [formGroup]="createcompForm">
+      <label class="label">Enter Company Name</label><br>
+      <input type="text" class="large-input" formControlName="companyName"
+        [class.invalid]="companyNameControl.invalid && (companyNameControl.dirty || companyNameControl.touched)">
+      <div *ngIf="companyNameControl.invalid && (companyNameControl.dirty || companyNameControl.touched)"
+        class="error mt-1">
+        <div *ngIf="companyNameControl.errors.required">
+          Company Name is required
+        </div>
+      </div>
+      <div mat-dialog-actions class="my-2" style="display: flex; justify-content:center;">
+        <button mat-button class="save-btn" (click)="onSave()">Create</button>
+      </div>
+    </form>
+  </div>
