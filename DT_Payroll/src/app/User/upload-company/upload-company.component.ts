@@ -1,10 +1,8 @@
 
 import { CreateCompanyComponent } from './../../Dialog Ref/create-company/create-company.component';
 import { ApiServiceService } from './../../Services/api-service.service';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -21,6 +19,7 @@ export class UploadCompanyComponent {
     { id: 1, text: "Master" }, { id: 2, text: "House " }, { id: 3, text: " Rent" },
     { id: 4, text: "Chapter" }
   ]
+
   apiCallSuccessful: boolean = false; dataRows: any[] = [
   ];
 
@@ -29,9 +28,14 @@ export class UploadCompanyComponent {
   createcompForm: FormGroup | any;
   dropdownSettings: IDropdownSettings | any;
   dropdownSettingsb: IDropdownSettings | any;
-  selectedFile: File | any;values:any;
+  selectedFile: File | any; values: any;
   progress: number = 0;
-  constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private route: Router, private apiService: ApiServiceService, private toast: ToastrService) {
+
+  constructor(public dialog: MatDialog,
+    private formBuilder: FormBuilder,
+    private route: Router,
+    private apiService: ApiServiceService,
+    private toast: ToastrService) {
     this.createcompForm = this.formBuilder.group({
       company: ['', Validators.required],
       fileType: ['', Validators.required]
@@ -67,73 +71,88 @@ export class UploadCompanyComponent {
     this.selectedFile = event.target.files[0];
   }
 
-  masterfileUpload(values:any) {
+  masterfileUpload() {
     this.loading = !this.loading;
     console.log(this.selectedFile);
-    const companyData = {
-      company: this.createcompForm.get('company').value,
-      fileType: this.createcompForm.get('fileType').value,
-      file: this.selectedFile
-    }
+    console.log('company:', this.createcompForm.get('company').value);
+    console.log('fileType:', this.createcompForm.get('fileType').value);
+    console.log('selectedFile:', this.selectedFile);
+
+    const companyData = new FormData();
+    companyData.append('company', this.createcompForm.get('company').value);
+    companyData.append('file', this.selectedFile);
     this.apiService.masterfile(companyData).subscribe(
       (event: any) => {
-        if (typeof (event) === 'object') {
-          this.loading = false; // Flag variable
+        if (typeof event === 'object') {
+          this.loading = false;
+          this.toast.success('File uploaded successfully', 'Success');
         }
+      },
+      (error: any) => {
+        this.loading = false;
+        this.toast.error('An error occurred. Please try again later.', 'Error');
       }
     );
   }
 
-  rentfileUpload(rowData: any) {
-    const formData = new FormData();
-    formData.append('company', this.data.company);
-    if (this.selectedFile) {
-      formData.append('file', this.selectedFile);
-    }
-    this.apiService.rentfile(formData).subscribe(
-      (response: any) => {
-        // Handle API response here if needed
-        console.log('API Response:', response);
+  rentfileUpload() {
+    console.log(this.selectedFile);
+    console.log('company:', this.createcompForm.get('company').value);
+    console.log('selectedFile:', this.selectedFile);
+
+    const companyData = new FormData();
+    companyData.append('company', this.createcompForm.get('company').value);
+    companyData.append('file', this.selectedFile);
+    this.apiService.rentfile(companyData).subscribe(
+      (event: any) => {
+        if (typeof event === 'object') {
+          this.loading = false;
+          this.toast.success('File uploaded successfully', 'Success');
+        }
       },
       (error: any) => {
-        // Handle API error here if needed
-        console.error('API Error:', error);
+        this.loading = false;
+        this.toast.error('An error occurred. Please try again later.', 'Error');
       }
     );
   }
 
   chapterfileUpload(rowData: any) {
-    const formData = new FormData();
-    formData.append('company', this.data.company);
-    if (this.selectedFile) {
-      formData.append('file', this.selectedFile);
-    }
-    this.apiService.chapterfile(formData).subscribe(
-      (response: any) => {
-        // Handle API response here if needed
-        console.log('API Response:', response);
+    console.log(this.selectedFile);
+    console.log('company:', this.createcompForm.get('company').value);
+    console.log('selectedFile:', this.selectedFile);
+    const companyData = new FormData();
+    companyData.append('file', this.selectedFile),
+      companyData.append('company', this.createcompForm.get('company').value);
+
+    this.apiService.chapterfile(companyData).subscribe(
+      (event: any) => {
+        if (typeof event === 'object') {
+          this.loading = false;
+          this.toast.success('File uploaded successfully', 'Success');
+        }
       },
       (error: any) => {
-        // Handle API error here if needed
-        console.error('API Error:', error);
+        this.loading = false;
+        this.toast.error('An error occurred. Please try again later.', 'Error');
       }
     );
   }
 
   housefileUpload(rowData: any) {
-    const formData = new FormData();
-    formData.append('company', this.data.company);
-    if (this.selectedFile) {
-      formData.append('file', this.selectedFile);
-    }
-    this.apiService.housefile(formData).subscribe(
-      (response: any) => {
-        // Handle API response here if needed
-        console.log('API Response:', response);
+    const companyData = new FormData();
+    companyData.append('file', this.selectedFile),
+      companyData.append('company', this.createcompForm.get('company').value);
+    this.apiService.housefile(companyData).subscribe(
+      (event: any) => {
+        if (typeof event === 'object') {
+          this.loading = false;
+          this.toast.success('File uploaded successfully', 'Success');
+        }
       },
       (error: any) => {
-        // Handle API error here if needed
-        console.error('API Error:', error);
+        this.loading = false;
+        this.toast.error('An error occurred. Please try again later.', 'Error');
       }
     );
   }

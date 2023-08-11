@@ -8,6 +8,7 @@
       <span class>Create New Company</span>
     </button>
   </div>
+  <form [formGroup]="createcompForm">
   <table class="table table-bordered bg-light mt-5 custom-table">
     <thead>
       <tr class="text-center">
@@ -51,7 +52,7 @@
               <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
               </div>
             </div>
-            <button class="btn btn-primary ms-5 px-5" (click)="masterfileUpload(data)">
+            <button class="btn btn-primary ms-5 px-5" (click)="masterfileUpload()">
               <span class="material-icons">file_upload</span>Upload
             </button>
           </td>
@@ -82,7 +83,7 @@
           </label>
         </td>
         <td>
-          <button class="btn btn-primary ms-5 px-5" (click)="rentfileUpload(data)" >
+          <button class="btn btn-primary ms-5 px-5" (click)="rentfileUpload()" >
             <span class="material-icons">file_upload</span>Upload
           </button>
         </td>
@@ -150,5 +151,5 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table></form>
 </div>

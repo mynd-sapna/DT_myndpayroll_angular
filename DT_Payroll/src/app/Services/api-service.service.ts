@@ -110,13 +110,34 @@ export class ApiServiceService {
 
 
   rentfile(data: FormData): Observable<any> {
-    return this.http.post('your-api-endpoint', data);
+     return this.http.post(`${this.baseURL}/rent_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
+      catchError((error) => {
+        // You can add your error handling logic here
+        console.error('An error occurred:', error);
+        return throwError('Something went wrong. Please try again later.');
+      })
+    );
   }
+
   chapterfile(data: FormData): Observable<any> {
-    return this.http.post('your-api-endpoint', data);
+    return this.http.post(`${this.baseURL}/chapter_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
+      catchError((error) => {
+        // You can add your error handling logic here
+        console.error('An error occurred:', error);
+        return throwError('Something went wrong. Please try again later.');
+      })
+    );
   }
+  
   housefile(data: FormData): Observable<any> {
-    return this.http.post('your-api-endpoint', data);
+    return this.http.post(`${this.baseURL}/house_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
+      catchError((error) => {
+        // You can add your error handling logic here
+        console.error('An error occurred:', error);
+        return throwError('Something went wrong. Please try again later.');
+      })
+    );
+
   }
 
   downloadFile(url: string): Observable<HttpResponse<Blob>> {
