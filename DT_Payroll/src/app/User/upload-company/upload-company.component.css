@@ -148,6 +148,7 @@ th.mat-header-cell:last-of-type {
     top: 0;
     opacity: 0;
     cursor: pointer;
+    width:10px;
   }
 
   .material-icons {

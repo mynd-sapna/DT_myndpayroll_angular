@@ -3,10 +3,10 @@
   <span class="loading-text">Loading...</span>
 </div>
 <div class="container-fluid display: flex;">
-  <div class="container left-align  mt-5 process-box2 ms-5">
-    <div class="my-2">{{ 'Total Assigned: ' + (verified + pending) }}</div>
-    <div class="my-2">{{ 'Total Verified: ' + verified }}</div>
-    <div>{{ 'Total Pending: ' + pending }}</div>
+  <div class="container left-align  mt-5 process-box2 ms-5" style="display: inline-block;">
+    <div class="mx-3   fs-5" style="display: inline;">{{ 'Total Assigned: ' + (verified + pending) }}</div>
+    <div class="mx-3 fs-5" style="display: inline;">{{ 'Total Verified: ' + verified }}</div>
+    <div style="display: inline;" class="fs-5 mx-3">{{ 'Total Pending: ' + pending }}</div>
   </div>
   <div class="right-align  my-4 process-box ms-5 table-responsive">
     <table mat-table [dataSource]="dataSource" class="table align-middle table-hover table-bordered">
@@ -28,7 +28,7 @@
         <td mat-cell class="text-center" *matCellDef="let element">
           <button class="positives-btn" (click)="viewQueueItem(element.id)"> <span *ngIf="!vLoading">View</span>
             <mat-spinner diameter="20" *ngIf="vLoading"></mat-spinner>
-            
+
           </button>
         </td>
       </ng-container>

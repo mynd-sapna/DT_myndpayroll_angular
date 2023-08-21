@@ -35,7 +35,7 @@ export class PayrollOutputCredComponent {
     this.authservice.isLoggedIn().subscribe((loggedIn: boolean) => {
       if (loggedIn) {
         // User is already logged in
-        this.toast.info('You are already authenticated.');
+        // this.toast.info('You are already authenticated.');
         this.dialogRef.close();
         this.router.navigate(['/download']);
       } else {

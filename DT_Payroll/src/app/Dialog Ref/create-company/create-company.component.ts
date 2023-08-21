@@ -53,15 +53,17 @@ export class CreateCompanyComponent {
 
     this.apiService.createCompany(companyData).subscribe(
       (response: any) => {
-        if (response != null) {
-          this.toast.success('Company Created Successfully!'); // Show success toast message
-        } else {
-          this.toast.error('A company with that name already exists. Try again later'); // Show error toast message
-        }
+        // if (response === 'success')
+        //   this.toast.success('Company Created Successfully!');
+        // else if (response === 'exists') {
+        //   this.toast.error('A company with that name already exists. Try again later');
+        // } else {
+        //   this.toast.error('An error occurred. Please try again later.');
+        // }
+        this.toast.success(JSON.parse(response).message);
       },
       (error: any) => {
-        this.toast.error('An error occurred. Please try again later.'); // Show error toast message for API error
-        console.error(error);
+        this.toast.error('An error occurred. Please try again later.');
       }
     );
   }

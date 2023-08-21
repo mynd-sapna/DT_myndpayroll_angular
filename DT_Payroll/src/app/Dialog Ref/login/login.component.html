@@ -1,5 +1,8 @@
-<mat-card class="login-card bg-blue">
-  <mat-card-title>Login</mat-card-title>
+<mat-card class="login-card bg-blue e-round-corner">
+  <h2 class="mt-4">Welcome to MYNDpayroll !</h2>
+  <mat-card-title><h2>Login</h2></mat-card-title>
+  <p>Enter your username ID & Password in order to proceed.</p>
+
   <mat-card-content class="center">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div>
@@ -25,7 +28,7 @@
           <div
             *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"
             class="form-text w-100 text-danger">
-            <div *ngIf="loginForm.controls.password.errors?.required">Username is required.</div>
+            <div *ngIf="loginForm.controls.password.errors?.required">password is required.</div>
             <div *ngIf="loginForm.controls.password.errors?.pattern">Invalid password format.</div>
           </div>
         </mat-form-field>

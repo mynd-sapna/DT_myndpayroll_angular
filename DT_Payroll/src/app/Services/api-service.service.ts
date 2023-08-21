@@ -92,27 +92,24 @@ export class ApiServiceService {
   createCompany(values: any): Observable<any> {
     return this.http.post(`${this.baseURL}/company/`, values,{ ...Option, responseType: 'text' }).pipe(
       catchError((error) => {
-        // You can add your error handling logic here
-        console.error('An error occurred:', error);
-        return throwError('Something went wrong. Please try again later.');
-      })
-    );
-  }
-  masterfile(values: any): Observable<any> {
-    return this.http.post(`${this.baseURL}/master_upload/`, values,{ ...Option, responseType: 'text' }).pipe(
-      catchError((error) => {
-        // You can add your error handling logic here
         console.error('An error occurred:', error);
         return throwError('Something went wrong. Please try again later.');
       })
     );
   }
 
+  masterfile(data: FormData): Observable<any> {
+    return this.http.post(`${this.baseURL}/master_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
+      catchError((error) => {
+        console.error('An error occurred:', error);
+        return throwError('Something went wrong. Please try again later.');
+      })
+    );
+  }
 
   rentfile(data: FormData): Observable<any> {
      return this.http.post(`${this.baseURL}/rent_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
       catchError((error) => {
-        // You can add your error handling logic here
         console.error('An error occurred:', error);
         return throwError('Something went wrong. Please try again later.');
       })
@@ -120,19 +117,17 @@ export class ApiServiceService {
   }
 
   chapterfile(data: FormData): Observable<any> {
-    return this.http.post(`${this.baseURL}/chapter_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
-      catchError((error) => {
-        // You can add your error handling logic here
+    return this.http.post(`${this.baseURL}/chapter6_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
+      catchError((error) => { 
         console.error('An error occurred:', error);
         return throwError('Something went wrong. Please try again later.');
       })
     );
   }
-  
+
   housefile(data: FormData): Observable<any> {
-    return this.http.post(`${this.baseURL}/house_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
+    return this.http.post(`${this.baseURL}/house_upload/`,data ,{ ...Option, responseType: 'text' }).pipe(
       catchError((error) => {
-        // You can add your error handling logic here
         console.error('An error occurred:', error);
         return throwError('Something went wrong. Please try again later.');
       })

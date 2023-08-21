@@ -45,12 +45,12 @@
           <ng-multiselect-dropdown formControlName="filetype" [placeholder]="'Select filetype'"
             [settings]="dropdownSettingsa" [data]="dropdownList.Filetypes"
             class="singleselect"></ng-multiselect-dropdown>
-          <div
+          <!-- <div
             *ngIf="allocateForm.controls['filetype'].invalid && (allocateForm.controls['filetype'].dirty || allocateForm.controls['filetype'].touched) "
             class="error mt-1">
             <div *ngIf="allocateForm.controls['filetype'].errors">
               filetype is required</div>
-          </div>
+          </div> -->
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
           <label class="my-2 text-center">Section</label><br>
@@ -58,26 +58,21 @@
             <option selected>Select section</option>
             <option *ngFor="let option  of section">{{option.text}}</option>
           </select>
-          <div
+          <!-- <div
             *ngIf="allocateForm.controls['filesection'].invalid && (allocateForm.controls['filesection'].dirty || allocateForm.controls['filesection'].touched) "
             class="error mt-1">
             <div *ngIf="allocateForm.controls['filesection'].errors">
               filesection is required</div>
-          </div>
+          </div> -->
         </div>
         <div class="col-sm-6 col- md-4 col-lg-4 col-xl-4 mb-3">
-          <label class="my-2 text-center">Agent to assign from</label><br>
+          <label class="my-2 text-center">Assigned from Agent</label><br>
           <ng-multiselect-dropdown formControlName="assign_agent" [placeholder]="'Select Agent to assign from'"
             [settings]="dropdownSettingsb" [data]="dropdownList.Agents" class="singleselect"></ng-multiselect-dropdown>
-          <div
-            *ngIf="allocateForm.controls['assign_agent'].invalid && (allocateForm.controls['assign_agent'].dirty || allocateForm.controls['assign_agent'].touched) "
-            class="error mt-1">
-            <div *ngIf="allocateForm.controls['assign_agent'].errors">
-              Agent is required</div>
-          </div>
+
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
-          <label class="my-2 text-center">Agent to asign to</label><br>
+          <label class="my-2 text-center">Assigned to agent</label><br>
           <ng-multiselect-dropdown formControlName="agent" [placeholder]="'Select Agent to asign to'"
             [settings]="dropdownSettingsb" [data]="dropdownList.Agents" class="singleselect"></ng-multiselect-dropdown>
           <div

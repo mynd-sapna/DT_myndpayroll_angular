@@ -30,7 +30,7 @@ export class UploadCompanyComponent {
   dropdownSettingsb: IDropdownSettings | any;
   selectedFile: File | any; values: any;
   progress: number = 0;
-
+  selectedCompany:any;
   constructor(public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private route: Router,
@@ -72,16 +72,12 @@ export class UploadCompanyComponent {
   }
 
   masterfileUpload() {
-    this.loading = !this.loading;
-    console.log(this.selectedFile);
-    console.log('company:', this.createcompForm.get('company').value);
-    console.log('fileType:', this.createcompForm.get('fileType').value);
-    console.log('selectedFile:', this.selectedFile);
-
-    const companyData = new FormData();
-    companyData.append('company', this.createcompForm.get('company').value);
-    companyData.append('file', this.selectedFile);
-    this.apiService.masterfile(companyData).subscribe(
+    const formData = new FormData();
+    formData.append('company_name', this.createcompForm.get('company')?.value[0]?.name || '');
+    if (this.selectedFile) {
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+    }
+    this.apiService.masterfile(formData).subscribe(
       (event: any) => {
         if (typeof event === 'object') {
           this.loading = false;
@@ -99,61 +95,60 @@ export class UploadCompanyComponent {
     console.log(this.selectedFile);
     console.log('company:', this.createcompForm.get('company').value);
     console.log('selectedFile:', this.selectedFile);
-
     const companyData = new FormData();
-    companyData.append('company', this.createcompForm.get('company').value);
+    companyData.append('company_name', this.createcompForm.get('company').value[0].name);
     companyData.append('file', this.selectedFile);
     this.apiService.rentfile(companyData).subscribe(
-      (event: any) => {
-        if (typeof event === 'object') {
-          this.loading = false;
-          this.toast.success('File uploaded successfully', 'Success');
-        }
-      },
-      (error: any) => {
-        this.loading = false;
-        this.toast.error('An error occurred. Please try again later.', 'Error');
+    (response: any) => {
+      if (response != null) {
+        this.toast.success('File uploaded successfully', 'Success');
+      } else {
       }
-    );
+    },
+    (error: any) => {
+      this.toast.error('An error occurred. Please try again later.', 'Error');
+      console.error(error);
+    }
+  );
   }
 
-  chapterfileUpload(rowData: any) {
+  chapterfileUpload() {
     console.log(this.selectedFile);
     console.log('company:', this.createcompForm.get('company').value);
     console.log('selectedFile:', this.selectedFile);
     const companyData = new FormData();
     companyData.append('file', this.selectedFile),
-      companyData.append('company', this.createcompForm.get('company').value);
-
+    companyData.append('company_name', this.createcompForm.get('company').value[0].name);
     this.apiService.chapterfile(companyData).subscribe(
-      (event: any) => {
-        if (typeof event === 'object') {
-          this.loading = false;
+      (response: any) => {
+        
+        if (response != null) {
           this.toast.success('File uploaded successfully', 'Success');
+        } else {
         }
       },
       (error: any) => {
-        this.loading = false;
         this.toast.error('An error occurred. Please try again later.', 'Error');
+        console.error(error);
       }
     );
-  }
+    }
 
-  housefileUpload(rowData: any) {
+  housefileUpload() {
     const companyData = new FormData();
     companyData.append('file', this.selectedFile),
-      companyData.append('company', this.createcompForm.get('company').value);
+    companyData.append('company_name', this.createcompForm.get('company').value[0].name);
     this.apiService.housefile(companyData).subscribe(
-      (event: any) => {
-        if (typeof event === 'object') {
-          this.loading = false;
-          this.toast.success('File uploaded successfully', 'Success');
-        }
-      },
-      (error: any) => {
-        this.loading = false;
-        this.toast.error('An error occurred. Please try again later.', 'Error');
+       (response: any) => {
+      if (response != null) {
+        this.toast.success('File uploaded successfully', 'Success');
+      } else {
       }
-    );
+    },
+    (error: any) => {
+      this.toast.error('An error occurred. Please try again later.', 'Error');
+      console.error(error);
+    }
+  );
   }
 }

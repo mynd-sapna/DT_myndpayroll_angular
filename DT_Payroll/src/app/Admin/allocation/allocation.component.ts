@@ -113,9 +113,9 @@ export class AllocationComponent implements OnInit {
     });
     this.allocateForm = this.formBuilder.group({
       company: ['', Validators.required],
-      filetype: ['', Validators.required],
-      filesection: ['', Validators.required],
-      assign_agent: ['', Validators.required],
+      // filetype: ['', Validators.required],
+      // filesection: ['', Validators.required],
+
       agent: ['', Validators.required],
       count: ['', Validators.required],
     });

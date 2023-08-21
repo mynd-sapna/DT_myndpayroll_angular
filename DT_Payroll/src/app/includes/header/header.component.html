@@ -21,11 +21,12 @@
               style="cursor: pointer;">Create Company </a>
           </li>
           <li class="nav-item" *ngIf="user && user.admin">
-            <a class="nav-link" (click)="outputCred()" style="cursor: pointer;" routerLinkActive="active">Payroll Output </a>
-          </li>
-          <li class="nav-item" *ngIf="user && user.admin">
             <a class="nav-link" (click)="createuser()" style="cursor: pointer;" >Create User</a>
           </li>
+          <li class="nav-item" *ngIf="user && user.admin">
+            <a class="nav-link" (click)="outputCred()" style="cursor: pointer;" routerLinkActive="active">Payroll Output </a>
+          </li>
+
         </ul>
       </div>
       <div class="col-5" *ngIf="user">

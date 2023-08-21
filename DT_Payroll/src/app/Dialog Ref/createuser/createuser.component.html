@@ -10,16 +10,16 @@
         <mat-form-field>
           <mat-label>Username</mat-label>
           <input matInput placeholder="username" formControlName="username" />
-          <small *ngIf="!createUserForm.get('username').valid && createUserForm.get('username').touched"
-            class="form-text w-100 text-danger">Please enter username</small>
+          <!-- <small *ngIf="!createUserForm.get('username').valid && createUserForm.get('username').touched"
+            class="form-text w-100 text-danger">Please enter username</small> -->
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
           <mat-label>Password</mat-label>
-          <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" />
-          <small *ngIf="!createUserForm.get('password').valid && createUserForm.get('password').touched"
-            class="form-text w-100 text-danger">Please enter password</small>
+          <input matInput  placeholder="password" formControlName="password" />
+          <!-- <small *ngIf="!createUserForm.get('password').valid && createUserForm.get('password').touched"
+            class="form-text w-100 text-danger">Please enter password</small> -->
         </mat-form-field>
       </div>
       <button mat-raised-button class="login-button" [disabled]="onloading" (click)="closeAll()">

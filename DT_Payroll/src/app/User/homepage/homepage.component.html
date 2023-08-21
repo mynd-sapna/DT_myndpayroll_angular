@@ -1,8 +1,16 @@
 <div class="container-fluid bg-blue text-white" [ngClass]="{ 'inverted': isLoggedIn }">
   <div class="row align-items: center; display: flex; justify-content: center;">
-    <div class="col-12 text-center mb-5" style="margin-top: 32vh;">
-      <img src="./assets/images/logo.png" class="logo-img" height="20px" alt="logo">
-      <span class="payrol mb-3">Payroll</span>
+    <div class="col-12 text-center mb-5" style="margin-top:10vh;">
+      <div class="col-12 text-center " style="margin-top: 10vh;">
+        <!-- <img src="./assets/images/logo.png" class="logo-img" height="20px" alt="logo"> -->
+        <span class="payrol">
+          <span class="red">M</span>
+          <span class="green">Y</span>
+          <span class="red">N</span>
+          <span class="red">D</span>
+          <span>&nbsp;</span> <!-- Add a space between words -->
+               <span>Payroll</span>
+      </span></div>
       <ng-container *ngIf="isLoggedIn; else notLoggedIn">
         <h2 class="sub-header">Welcome back {{ user?.username }} !</h2> <!-- Use safe navigation operator here -->
         <button *ngIf="!user?.admin; else adminButton" routerLink="/worklist"  class="btn btn-lg btn-white mb-4 px-4 py-3">
@@ -13,7 +21,7 @@
         </ng-template>
       </ng-container>
       <ng-template #notLoggedIn>
-        <h2 class="sub-header">Welcome!</h2>
+        <h2 class="sub-header py-2">Welcome!</h2>
         <button class="btn btn-lg btn-white mb-4 px-5  py-3" (click)="login()">Login</button>
       </ng-template>
     </div>
