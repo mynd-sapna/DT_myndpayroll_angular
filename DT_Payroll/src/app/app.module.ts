@@ -93,7 +93,7 @@ import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
       useClass:AuthInterceptor,
       multi:true
     },
-    { provide: LocationStrategy, useClass: HashLocationStrategy},
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     AuthServiceService, 
     ExtractionStoreService,
     AuthGuard],
