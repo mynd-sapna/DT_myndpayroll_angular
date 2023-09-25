@@ -26,7 +26,7 @@ import { enableProdMode } from '@angular/core';
 import { UploadCompanyComponent } from './User/upload-company/upload-company.component';
 import { WorklistComponent } from './User/worklist/worklist.component';
 import { PayrollOutputComponent } from './User/payroll-output/payroll-output.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ExtractionStoreService } from './Services/extraction-store.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
@@ -93,8 +93,10 @@ import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
       useClass:AuthInterceptor,
       multi:true
     },
-
-    AuthServiceService, ExtractionStoreService,AuthGuard,],
+    { provide: LocationStrategy, useClass: HashLocationStrategy},
+    AuthServiceService, 
+    ExtractionStoreService,
+    AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
