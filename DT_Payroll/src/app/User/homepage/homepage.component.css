@@ -19,7 +19,7 @@
 .payrol {
   font-weight: 500;
   font-Size: 52px;
-  Line-height:48px;
+  line-height:48px;
 
 }
 
@@ -65,7 +65,8 @@
 }
 
 .sub-header{
-  font-size: 1.71428571rem;
+  font-size: 32px;
+  font-weight: 500;
   color:white;
 
 }
@@ -84,8 +85,8 @@
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 50px auto;
- Height:311px;
-Padding:24px, 24px, 48px, 24px;
+ height:311px;
+padding:24px, 24px, 48px, 24px;
 Gap:32px;
 }
 
@@ -126,7 +127,7 @@ h2{
   background-color:  rgba(255, 255, 255, 1);
   align-items: center;
   width:421px;
-  Height:332px;
+  height:332px;
   border-radius: 16px;
   border: 1px solid rgba(214, 214, 214, 1)
 }
@@ -150,4 +151,12 @@ h2{
   border: 1px solid red;  /* Add a red border */
   padding: 10px;    /* Add padding */
   margin: 0 0 10px;   /* Add margin to create space around the error message */
+}
+.card-container {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #e0e1e2;
+  background-color: #fff;
 }

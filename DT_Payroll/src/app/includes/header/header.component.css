@@ -9,14 +9,14 @@
 .navbar-brand a  {
   display: inline-block;
   vertical-align: middle;
-  width: 5em;
+  width: 6em;
   text-decoration: none;
 }
 
 .navColorRed {
-  color: red !important;
-  font-weight: 600;
-  font-size: 14px;
+  color: #FF0000 !important;
+  font-weight: 500;
+  font-size: 15px !important;
   padding: 13px 16px;
 }
 
@@ -54,8 +54,8 @@
   background-color: blue;
 }
 a.nav-link.active {
-  color: red;
+  color: #FF0000;
 }
 .active {
- color: red;
+ color: #FF0000;
 }

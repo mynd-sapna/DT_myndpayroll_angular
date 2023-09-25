@@ -61,9 +61,11 @@ export class CreateCompanyComponent {
         //   this.toast.error('An error occurred. Please try again later.');
         // }
         this.toast.success(JSON.parse(response).message);
+        this.dialogRef.close();
       },
       (error: any) => {
-        this.toast.error('An error occurred. Please try again later.');
+        this.toast.error('A company with that name is already exists. please Try again later.');
+        this.dialogRef.close();
       }
     );
   }

@@ -1,3 +1,5 @@
+
+
 <div class="container my-5">
   <div style="display: flex; justify-content: flex-end" class="mt-5">
     <button mat-flat-button class="positives-btn mt-4" (click)="createCompany()">
@@ -6,7 +8,10 @@
     </button>
   </div>
   <form [formGroup]="createcompForm">
-  <table class="table table-bordered bg-light mt-5 custom-table">
+    <div class="card mt-3" style="border-radius: 16px;">
+      <div class="card-body">
+        <div class="table-responsive">
+  <table class="table table-bordered bg-light my-5 custom-table ">
     <thead>
       <tr class="text-center">
         <th>S.no</th>
@@ -38,26 +43,23 @@
             </label>
           </td>
           <td>
-            <label class="custom-file-upload">
-              <input type="file" (change)="onFileChange($event)" />
-              <span class="material-icons text-primary">attach_file</span>
-              Attach File
-            </label>
+            <input type="file" name="file" (change)="onFileChange($event)"/>
           </td>
           <td>
-            <div class="progress form-group" *ngIf="progress > 0">
-              <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
-              </div>
-            </div>
-            <button class="btn btn-primary ms-5 px-5" (click)="masterfileUpload()">
-              <span class="material-icons">file_upload</span>Upload
+            <button class="btn btn-primary ms-5 px-5 py-2" (click)="masterfileUpload()">
+              <ng-container *ngIf="!loading; else loadingTemplate"><span class="material-icons">file_upload</span> Upload </ng-container>
             </button>
+            <ng-template #loadingTemplate>
+              <div class="spinner-border text-light" style="font: size 14px;" role="status">
+              </div>
+            </ng-template>
+
           </td>
           </tr>
         <tr>
           <td>2</td>
         <td>
-         <h6>House File</h6>
+         <h6>Rent File</h6>
         </td>
         <td>
           <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
@@ -73,22 +75,28 @@
           </label>
         </td>
         <td>
-          <label class="custom-file-upload">
+          <!-- <label class="custom-file-upload">
             <input type="file" (change)="onFileChange($event)" />
             <span class="material-icons text-primary">attach_file</span>
             Attach File
-          </label>
+          </label> -->
+           <input type="file" name="file" (change)="onFileChange($event)" />
         </td>
         <td>
-          <button class="btn btn-primary ms-5 px-5" (click)="housefileUpload()" >
-            <span class="material-icons">file_upload</span>Upload
-          </button>
+          <button class="btn btn-primary ms-5 px-5" (click)="rentfileUpload()" >
+            <ng-container *ngIf="!loadingr; else loadingTemplate"><span class="material-icons">file_upload</span> Upload </ng-container>
+            </button>
+            <ng-template #loadingrTemplate>
+              <div class="spinner-border text-light" style="font: size 14px;" role="status">
+              </div>
+            </ng-template>
+
         </td>
       </tr>
       <tr>
         <td>3</td>
         <td>
-          <h6>Rent File</h6>
+          <h6>Chapter(6A) File</h6>
         </td>
         <td>
           <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
@@ -104,22 +112,27 @@
           </label>
         </td>
         <td>
-          <label class="custom-file-upload">
+          <!-- <label class="custom-file-upload">
             <input type="file" (change)="onFileChange($event)" />
             <span class="material-icons text-primary">attach_file</span>
             Attach File
-          </label>
+          </label> -->
+          <input type="file" name="file" (change)="onFileChange($event)"/>
         </td>
         <td>
-          <button class="btn btn-primary ms-5 px-5" (click)="rentfileUpload()" >
-            <span class="material-icons">file_upload</span> Upload
+          <button class="btn btn-primary ms-5 px-5" (click)="chapterfileUpload()" >
+            <ng-container *ngIf="!loadingc; else loadingTemplate"><span class="material-icons">file_upload</span> Upload </ng-container>
           </button>
+          <ng-template #loadingcTemplate>
+            <div class="spinner-border text-light" style="font: size 14px;" role="status">
+            </div>
+          </ng-template>
         </td>
       </tr>
       <tr>
         <td>4</td>
         <td>
-        <h6>Chapter File</h6>
+        <h6>House File</h6>
         </td>
         <td>
           <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
@@ -135,18 +148,41 @@
           </label>
         </td>
         <td>
-          <label class="custom-file-upload">
+          <!-- <label class="custom-file-upload">
             <input type="file" (change)="onFileChange($event)" />
             <span class="material-icons text-primary">attach_file</span>
             Attach File
-          </label>
+          </label> -->
+          <input type="file" name="file" (change)="onFileChange($event)"/>
         </td>
         <td>
-          <button class="btn btn-primary ms-5 px-5" (click)="chapterfileUpload()">
-            <span class="material-icons">file_upload</span>Upload
+          <button class="btn btn-primary ms-5 px-5" (click)="housefileUpload()">
+            <ng-container *ngIf="!loadingh; else loadingTemplate"><span class="material-icons">file_upload</span> Upload </ng-container>
           </button>
+          <ng-template #loadinghTemplate>
+            <div class="spinner-border text-light" style="font: size 14px;" role="status">
+            </div>
+          </ng-template>
         </td>
       </tr>
     </tbody>
-  </table></form>
+  </table>
 </div>
+  </div>
+  </div>
+</form>
+<div class="row float-end my-4">
+  <div class="col-md-6">
+    <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'" [settings]="dropdownSettings" [data]="data?.Companies" class="singleselect">
+    </ng-multiselect-dropdown>
+  </div>
+  <div class="col-md-6">
+    <button class="btn btn-primary px-5 py-2 ms-5" (click)="process_file()">
+      <ng-container *ngIf="!loading; else loadingTemplate">
+        Process
+      </ng-container>
+    </button>
+  </div>
+</div>
+</div>
+

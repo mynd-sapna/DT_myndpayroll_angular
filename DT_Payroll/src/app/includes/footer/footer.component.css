@@ -1,9 +1,10 @@
-footer {
+#footer {
   bottom: 0;
   height: 8%;
   width: 100%;
   padding: 8px;
   position: fixed;
+  text-align: center;
 }
 
 .bg {
@@ -20,6 +21,8 @@ footer {
   list-style: none;
   padding-left: 0;
   float: right;
+  vertical-align: middle;
+  text-align: center;
 }
 
 .foot-link li a {
@@ -27,6 +30,15 @@ footer {
   text-decoration: none !important;
 }
 
+.margin-foot {
+  flex-grow: 1;
+  color: white; /* White text color */
+}
+
+.margin-foot a {
+  color: #FF0000;
+  text-decoration: none;
+}
 #footer ul.foot-link li {
   display: inline-block;
   font-size: 0.875rem;
@@ -34,6 +46,5 @@ footer {
   font-weight: 400;
   margin-right: 20px;
 }
-
 
 

@@ -15,7 +15,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';                                                                                          
+import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 

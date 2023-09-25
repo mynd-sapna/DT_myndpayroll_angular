@@ -36,6 +36,7 @@ export class PayrollOutputComponent implements OnInit {
   is_admin: boolean|any;
   locals: any = JSON.parse(localStorage.getItem('user') || '{}');
   id: number | any;
+  isLoggedIn: boolean | any;
   constructor(
     private apiservice: ApiServiceService,private authService:AuthServiceService,
     private filesever: FileSaverService,
@@ -56,8 +57,18 @@ export class PayrollOutputComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.id = this.locals.id;
+    this.authService.isLoggedIn().subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+      if (loggedIn) {
+        // User is logged in, update the user property with the logged-in user data
+        const IUserFormValues = localStorage.getItem('user');
+        this.user = JSON.parse(IUserFormValues || '{}');
+      } else {
+        // User is logged out, reset the user property
+        this.user = null;
+      }
+    });
+    this.id = this.locals.id; 
     this.generaldata();
     this.dropdownSettings = {
       singleSelection: true,

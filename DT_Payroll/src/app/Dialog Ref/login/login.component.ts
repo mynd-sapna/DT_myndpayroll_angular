@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     private Router: Router,
     public dialog: MatDialog,
     private toast: ToastrService,
-    private dialogRef: MatDialogRef<LoginComponent>,
+    // private dialogRef: MatDialogRef<LoginComponent>,
     private snackBar: MatSnackBar
   ) {
 
@@ -85,14 +85,14 @@ export class LoginComponent implements OnInit {
               console.log("User is logged in");
               this.Router.navigate(['/allocation']);
             } else {
-              this.Router.navigate(['/worklist']);
+              this.Router.navigate(['/create-company']);
             }
             // Close the dialog after successful login
-            this.dialogRef.close();
+            // this.dialogRef.close();
           } else {
             // API call successful, but invalid credentials
             this.submitError = 'Forbidden: Invalid username or password!';
-          }                       
+          }
           // Turn off loading spinner after API response is received
           this.onloading = false;
         },

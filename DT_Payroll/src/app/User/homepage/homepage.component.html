@@ -1,28 +1,39 @@
 <div class="container-fluid bg-blue text-white" [ngClass]="{ 'inverted': isLoggedIn }">
   <div class="row align-items: center; display: flex; justify-content: center;">
-    <div class="col-12 text-center mb-5" style="margin-top:10vh;">
-      <div class="col-12 text-center " style="margin-top: 10vh;">
-        <!-- <img src="./assets/images/logo.png" class="logo-img" height="20px" alt="logo"> -->
-        <span class="payrol">
-          <span class="red">M</span>
-          <span class="green">Y</span>
-          <span class="red">N</span>
-          <span class="red">D</span>
-          <span>&nbsp;</span> <!-- Add a space between words -->
-               <span>Payroll</span>
-      </span></div>
+    <div class="col-12 text-center mb-5" style="margin-top:9vh;">
+
+      <!-- <img src="./assets/images/logo.png" class="logo-img" height="20px" alt="logo"> -->
+      <span class="payrol">
+        <span class="red">M</span>
+        <span class="green">Y</span>
+        <span class="red">N</span>
+        <span class="red">D</span>
+        <span>&nbsp;</span> <!-- Add a space between words -->
+        <span styl="font-weight:400 !important">Payroll</span>
+      </span>
       <ng-container *ngIf="isLoggedIn; else notLoggedIn">
-        <h2 class="sub-header">Welcome back {{ user?.username }} !</h2> <!-- Use safe navigation operator here -->
-        <button *ngIf="!user?.admin; else adminButton" routerLink="/worklist"  class="btn btn-lg btn-white mb-4 px-4 py-3">
+        <h2 class="sub-header mt-5 mb-3">Welcome back {{ user?.username }} !</h2>
+        <!-- Use safe navigation operator here -->
+        <button *ngIf="!user?.admin; else adminButton" routerLink="/worklist"
+          class="btn btn-lg btn-white mb-4 px-4 py-3">
           Got to your queue
         </button>
         <ng-template #adminButton>
-        <button *ngIf="user.admin" routerLink="/allocation" class="btn btn-lg btn-white mb-4 px-4 py-3">Got to your allocation page</button>
+          <button *ngIf="user.admin" routerLink="/allocation" class="btn btn-lg btn-white mb-4 px-4 py-3">Got to your
+            allocation page</button>
         </ng-template>
       </ng-container>
       <ng-template #notLoggedIn>
-        <h2 class="sub-header py-2">Welcome!</h2>
-        <button class="btn btn-lg btn-white mb-4 px-5  py-3" (click)="login()">Login</button>
+        <h2 class="sub-header py-4">Welcome !</h2>
+        <!-- <button class="btn btn-lg btn-white mb-4 px-5  py-3" (click)="login()">Login</button> -->
+        <div class="d-flex justify-content-center">
+          <app-login class="card-container"></app-login>
+        </div>
+        <div style="margin-top: 11vh;">
+          <a href="https://www.myndsolution.com/" target="_blank">
+            <img src="/assets/images/made_by_mynd.png" alt="Made by MYND" />
+          </a>
+        </div>
       </ng-template>
     </div>
   </div>
@@ -56,21 +67,3 @@
 
 
 
-
-
-<!-- <ng-container *ngIf="!isLoggedIn && user">
-
-        <h3 class="welc mt-4 mb-3">Welcome back {{ user.username}}!</h3>
-        <button *ngIf="!user.admin" routerLink="/worklist" class="huge-button">Go to your queue</button>
-        <button *ngIf="user.admin" routerLink="/admin/allocate" class="huge-button">Go to your allocation page</button>
-      </ng-container>
-
-      <ng-container *ngIf="!isLoggedIn || !user">
-        <h2 class="welcome-message">Welcome!</h2>
-        <button class="btn btn-lg btn-white mb-4 px-3 py-2" (click)="login()">Login</button>
-          <button *ngIf="!user" routerLink="/worklist" class="btn btn-lg btn-white mb-4 ">Go to your queue</button>
-        <button *ngIf="!user" routerLink="/allocation" class="btn btn-lg btn-white mb-4 px-3 py-2" >Go to your allocation page</button>
-      </ng-container>
-    </div>
-  </div>
-</div> -->

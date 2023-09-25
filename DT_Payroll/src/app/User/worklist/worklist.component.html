@@ -3,12 +3,14 @@
   <span class="loading-text">Loading...</span>
 </div>
 <div class="container-fluid display: flex;">
-  <div class="container left-align  mt-5 process-box2 ms-5" style="display: inline-block;">
-    <div class="mx-3   fs-5" style="display: inline;">{{ 'Total Assigned: ' + (verified + pending) }}</div>
-    <div class="mx-3 fs-5" style="display: inline;">{{ 'Total Verified: ' + verified }}</div>
-    <div style="display: inline;" class="fs-5 mx-3">{{ 'Total Pending: ' + pending }}</div>
+  <div class="container-fluid display: flex; mt-3 ms-0">
+    <div class="container left-align mt-5 process-box2 ms-5" style="display: inline-block;">
+      <div class="mx-3 fs-5" style="display: inline; color: blue;">Total Assigned: <span style="color: black;">{{ (verified + pending) }}</span></div>
+      <div class="mx-3 fs-5" style="display: inline; color: green;">Total Verified: <span style="color: black;">{{ verified }}</span></div>
+      <div style="display: inline; color:red" class="fs-5 mx-3">Total Pending: <span style="color: black;">{{ pending }}</span></div>
+    </div>
   </div>
-  <div class="right-align  my-4 process-box ms-5 table-responsive">
+  <div class="right-align  my-4 process-box ms-5 p3 table-responsive" style="border-radius: 10px;">
     <table mat-table [dataSource]="dataSource" class="table align-middle table-hover table-bordered">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef class="text-center"> S.No. </th>

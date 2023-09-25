@@ -118,7 +118,7 @@ export class ApiServiceService {
 
   chapterfile(data: FormData): Observable<any> {
     return this.http.post(`${this.baseURL}/chapter6_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
-      catchError((error) => { 
+      catchError((error) => {
         console.error('An error occurred:', error);
         return throwError('Something went wrong. Please try again later.');
       })
@@ -132,9 +132,7 @@ export class ApiServiceService {
         return throwError('Something went wrong. Please try again later.');
       })
     );
-
   }
-
   downloadFile(url: string): Observable<HttpResponse<Blob>> {
     const headers = new HttpHeaders().set('Accept', 'application/octet-stream');
     return this.http.get(url, {
@@ -145,21 +143,23 @@ export class ApiServiceService {
   }
 
   download(values: any): Observable<any> {
-    const authToken = 'Basic YWRtaW46YWRtaW4=';
     const headers = new HttpHeaders({
-      Authorization: authToken
     })
     return this.http.post<any>(`${this.baseURL}/download/`, values, { headers: headers });
   }
+
   getSampleFile(): Observable<Blob> {
     return this.http.get(`${this.baseURL}/`, { responseType: 'blob' });
   }
-  uploadFile(values: any): Observable<any> {
-    return this.http.get<any>(`${this.baseURL}/`);
-  }
 
-  updateCompany(values: any): Observable<any> {
-    return this.http.post<any>(`${this.baseURL}/`, values);
+
+  ocrfiles(data: FormData): Observable<any> {
+    return this.http.post(`${this.baseURL}/ocr/`, data,{ ...Option, responseType: 'text' }).pipe(
+      catchError((error) => {
+        console.error('An error occurred:', error);
+        return throwError('Something went wrong. Please try again later.');
+      })
+    );
   }
 
 

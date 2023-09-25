@@ -9,6 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AllocationComponent } from './Admin/allocation/allocation.component';
 import { ExportCompanyComponent } from './Dialog Ref/export-company/export-company.component';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { LoginComponent } from './Dialog Ref/login/login.component';
 
 
 const routes: Routes = [
@@ -19,9 +20,10 @@ const routes: Routes = [
   { path: 'worklist', component: WorklistComponent, canActivate: [AuthGuard] },
   { path: 'download', component: PayrollOutputComponent, canActivate: [AuthGuard] },
   { path: 'export-company', component: ExportCompanyComponent, canActivate: [AuthGuard] },
+  {path: '', component:LoginComponent},
   { path: '**', component: NotfoundComponent },
   // {
-  //   path: 'admin', 
+  //   path: 'admin',
   //   canActivate: [AuthGuard],
   //   loadChildren: () =>
   //     import('./modules/admin/admin.module').then((m) => m.AdminModule),

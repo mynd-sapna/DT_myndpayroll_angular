@@ -1,4 +1,4 @@
-<div>
+
   <div style="display:flex;flex-direction:row;justify-content:space-between" class="dialog-header">
     <h2 mat-dialog-title class="title-text">
       Create Company </h2>
@@ -9,8 +9,8 @@
   <div mat-dialog-content class="text-center"
     style="min-height: 100px !important; min-width: 400px !important; overflow: hidden !important;">
     <form [formGroup]="createcompForm">
-      <label class="label">Enter Company Name</label><br>
-      <input type="text" class="large-input" formControlName="companyName"
+      <label class="label mb-2"> Company Name</label><br>
+      <input type="text" class="large-input" formControlName="companyName" placeholder="Enter company name"
         [class.invalid]="companyNameControl.invalid && (companyNameControl.dirty || companyNameControl.touched)">
       <div *ngIf="companyNameControl.invalid && (companyNameControl.dirty || companyNameControl.touched)"
         class="error mt-1">
@@ -23,3 +23,4 @@
       </div>
     </form>
   </div>
+  

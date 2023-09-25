@@ -38,7 +38,7 @@ import {
     this.showPassword = !this.showPassword;
   }
   routeURL: string | any;
-  constructor(private router: Router,    private toast: ToastrService,public dialog: MatDialog, private authservice: AuthServiceService, private formBuilder: FormBuilder,) {
+  constructor(private router: Router,  private toast: ToastrService,public dialog: MatDialog, private authservice: AuthServiceService, private formBuilder: FormBuilder,) {
       this.authservice.isLoggedIn().subscribe((loggedIn) => {
         this.isLoggedIn = loggedIn;
       });
@@ -116,7 +116,7 @@ import {
           } else {
             // API call successful, but invalid credentials
             this.submitError = 'Forbidden: Invalid username or password!';
-          }                       
+          }
           // Turn off loading spinner after API response is received
           this.onloading = false;
         },

@@ -1,7 +1,9 @@
-<mat-card class="login-card bg-blue e-round-corner">
-  <h2 class="mt-4">Welcome to MYNDpayroll !</h2>
-  <mat-card-title><h2>Login</h2></mat-card-title>
-  <p>Enter your username ID & Password in order to proceed.</p>
+<div class="login-card bg-blue e-round-corner">
+
+  <mat-card-title>
+    <h2 class="my-3" style="font-weight: 500; font-size:22px !important;">Welcome to MYNDpayroll !</h2>
+  </mat-card-title>
+  <p class="mb-3 text-dark">Enter your username ID & Password in order to proceed.</p>
 
   <mat-card-content class="center">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -9,7 +11,7 @@
         <mat-form-field>
           <mat-label>Username</mat-label>
           <input matInput placeholder="" formControlName="username" />
-          <mat-icon matSuffix>account_box</mat-icon>
+          <mat-icon matSuffix class="text-dark">account_box</mat-icon>
           <div
             *ngIf="loginForm.controls.username.invalid && (loginForm.controls.username.dirty || loginForm.controls.username.touched)"
             class="form-text w-100 text-danger">
@@ -21,8 +23,8 @@
       <div>
         <mat-form-field>
           <mat-label>Password</mat-label>
-          <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password"  required />
-          <mat-icon matSuffix (click)="togglePasswordVisibility()">
+          <input matInput  [type]="showPassword ? 'text' : 'password'" formControlName="password"  required />
+          <mat-icon matSuffix class="text-dark" (click)="togglePasswordVisibility()">
             {{showPassword?'visibility_off':'visibility'}}
           </mat-icon>
           <div
@@ -34,10 +36,10 @@
         </mat-form-field>
       </div>
       <div *ngIf="submitError" class="error-message">{{ submitError }}</div>
-      <button mat-raised-button class="login-button" [disabled]="!isloginValid">
+      <button mat-raised-button class="login-button my-2 px-5" [disabled]="!isloginValid">
         <span *ngIf="!onloading">Login</span>
         <mat-spinner *ngIf="onloading" diameter="20" class="login-spinner"></mat-spinner>
       </button>
     </form>
   </mat-card-content>
-</mat-card>
+</div>

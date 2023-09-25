@@ -22,15 +22,26 @@ export class UploadCompanyComponent {
 
   apiCallSuccessful: boolean = false; dataRows: any[] = [
   ];
-
+  fileName = '';
   data: any;
   loading: boolean = false;
+  loadingr:boolean = false;
+  loadingc:boolean=false;
+  loadingh:boolean= false;
   createcompForm: FormGroup | any;
   dropdownSettings: IDropdownSettings | any;
   dropdownSettingsb: IDropdownSettings | any;
   selectedFile: File | any; values: any;
   progress: number = 0;
   selectedCompany:any;
+  selectedFileColor: string = 'green';
+  uploadItems: { isUploading: boolean }[] = [
+    { isUploading: false },
+    { isUploading: false },
+    { isUploading: false }
+    // Add more items as needed
+  ];
+
   constructor(public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private route: Router,
@@ -69,32 +80,57 @@ export class UploadCompanyComponent {
 
   onFileChange(event: any) {
     this.selectedFile = event.target.files[0];
+    this.selectedFileColor = 'green';
   }
 
   masterfileUpload() {
-    const formData = new FormData();
-    formData.append('company_name', this.createcompForm.get('company')?.value[0]?.name || '');
-    if (this.selectedFile) {
-      formData.append('file', this.selectedFile, this.selectedFile.name);
+    this.loading = true;
+    if (!this.selectedFile) {
+      this.toast.warning('Please select a Master file before uploading.');
+      return;
     }
-    this.apiService.masterfile(formData).subscribe(
-      (event: any) => {
-        if (typeof event === 'object') {
-          this.loading = false;
+    const selectedCompany = this.createcompForm.get('company').value;
+    if (!selectedCompany) {
+      this.toast.warning('Please select a company before uploading file.');
+      return;
+    }
+    const companyData = new FormData();
+    companyData.append('company_name', selectedCompany[0].name);
+    companyData.append('file', this.selectedFile);
+    this.apiService.masterfile(companyData).subscribe(
+      (response: any) => {
+        if (response != null) {
           this.toast.success('File uploaded successfully', 'Success');
+        } else {
+          // Handle the case where the response is not as expected
         }
       },
       (error: any) => {
-        this.loading = false;
-        this.toast.error('An error occurred. Please try again later.', 'Error');
+        if (error && error.error && error.error.message) {
+          this.toast.error(error.error.message);
+        } else {
+          this.toast.error('Invalid column names. Expected columns: "EMP_CODE", "EMP_NAME".');
+        }
+        console.error(error);
       }
-    );
+    ).add(() => {
+      this.loading = false; // Stop the loader after API call is complete
+    });
+
   }
 
   rentfileUpload() {
-    console.log(this.selectedFile);
-    console.log('company:', this.createcompForm.get('company').value);
-    console.log('selectedFile:', this.selectedFile);
+    this.loadingr = true;
+    if (!this.selectedFile) {
+      this.toast.warning('Please select a Rent file before uploading.');
+      return; // Exit the function if file is not selected
+    }
+    const selectedCompany = this.createcompForm.get('company').value;
+    if (!selectedCompany) {
+      this.toast.warning('Please select a company before uploading file.');
+      return; // Exit the function if company is not selected
+    }
+
     const companyData = new FormData();
     companyData.append('company_name', this.createcompForm.get('company').value[0].name);
     companyData.append('file', this.selectedFile);
@@ -106,49 +142,104 @@ export class UploadCompanyComponent {
       }
     },
     (error: any) => {
-      this.toast.error('An error occurred. Please try again later.', 'Error');
+      if (error && error.error && error.error.message) {
+        this.toast.error(error.error.message);
+      } else {
+        this.toast.error("Master file has been uploaded multiple times . Please contact with technical team");
+      }
       console.error(error);
     }
-  );
+   ).add(() => {
+    this.loadingr = false; // Stop the loader after API call is complete
+  });
   }
 
   chapterfileUpload() {
-    console.log(this.selectedFile);
-    console.log('company:', this.createcompForm.get('company').value);
-    console.log('selectedFile:', this.selectedFile);
-    const companyData = new FormData();
-    companyData.append('file', this.selectedFile),
-    companyData.append('company_name', this.createcompForm.get('company').value[0].name);
-    this.apiService.chapterfile(companyData).subscribe(
-      (response: any) => {
-        
-        if (response != null) {
-          this.toast.success('File uploaded successfully', 'Success');
-        } else {
-        }
-      },
-      (error: any) => {
-        this.toast.error('An error occurred. Please try again later.', 'Error');
-        console.error(error);
-      }
-    );
+    this.loadingc = true;
+    if (!this.selectedFile) {
+      this.toast.warning('Please select a Chapter file before uploading.');
+      return; // Exit the function if file is not selected
     }
-
-  housefileUpload() {
+    const selectedCompany = this.createcompForm.get('company').value;
+    if (!selectedCompany) {
+      this.toast.warning('Please select a company before uploading file.');
+      return; // Exit the function if company is not selected
+    }
     const companyData = new FormData();
-    companyData.append('file', this.selectedFile),
     companyData.append('company_name', this.createcompForm.get('company').value[0].name);
-    this.apiService.housefile(companyData).subscribe(
-       (response: any) => {
+    companyData.append('file', this.selectedFile);
+    this.apiService.chapterfile(companyData).subscribe(
+    (response: any) => {
       if (response != null) {
         this.toast.success('File uploaded successfully', 'Success');
       } else {
       }
     },
     (error: any) => {
-      this.toast.error('An error occurred. Please try again later.', 'Error');
+      if (error && error.error && error.error.message) {
+        this.toast.error(error.error.message);
+      } else {
+        this.toast.error("Master file has been uploaded multiple times . Please contact with technical team");
+      }
       console.error(error);
     }
-  );
-  }
+    ).add(() => {
+      this.loadingc = false; // Stop the loader after API call is complete
+    });
+    }
+
+  housefileUpload() {
+    this.loadingh =true;
+    if (!this.selectedFile) {
+      this.toast.warning('Please select a Chapter file before uploading.');
+      return; // Exit the function if file is not selected
+    }
+    const selectedCompany = this.createcompForm.get('company').value;
+    if (!selectedCompany) {
+      this.toast.warning('Please select a company before uploading file.');
+      return; // Exit the function if company is not selected
+    }
+
+    const companyData = new FormData();
+    companyData.append('company_name', this.createcompForm.get('company').value[0].name);
+    companyData.append('file', this.selectedFile);
+    this.apiService.housefile(companyData).subscribe(
+    (response: any) => {
+      if (response != null) {
+        this.toast.success('File uploaded successfully', 'Success');
+      } else {
+      }
+    },
+    (error: any) => {
+      if (error && error.error && error.error.message) {
+        this.toast.error(error.error.message);
+      } else {
+        this.toast.error("Master file has been uploaded multiple times . Please contact with technical team");
+      }
+      console.error(error);
+    }
+    ).add(() => {
+      this.loadingh = false;
+    });
+    }
+
+    process_file() {
+      const selectedCompany = this.createcompForm.get('company').value;
+      const companyData = new FormData();
+      if (selectedCompany && selectedCompany.length > 0) {
+        companyData.append('company_name', selectedCompany[0].name);
+      }
+      this.apiService.ocrfiles(companyData).subscribe(
+        (response: any) => {
+          if (response != null) {
+            this.toast.success('File uploaded successfully', 'Success');
+          } else {
+          }
+        },
+        (error: any) => {
+
+        }
+      );
+    }
+
 }

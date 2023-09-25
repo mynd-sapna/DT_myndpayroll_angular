@@ -188,10 +188,26 @@ th.mat-header-cell:last-of-type {
   }
 
   .singleselect input[type=checkbox]:checked+div {
-
     color: black !important;
   }
 
   .singleselect .multiselect-dropdown {
     width: 250px !important;
+  }
+  .selected-file-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #3498db; /* Set the desired color */
+    border-radius: 3px;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+  }
+  .selected-file {
+    margin-top: 10px;
+  }
+
+  .selected-file span {
+    color: green; /* Default color for the selected file text */
   }
