@@ -2,10 +2,12 @@
   <div class="row">
     <div class="col-12 col-sm-9">
       <div class="process-box">
-        <div class="col-sm-12" style="overflow: scroll;height:70vh">
-          <div class="Content" #imageElement>
-            <img src="" alt="Image">
-          </div>
+        <div class="col-sm-12" style="overflow: scroll; height: 70vh;">
+          <div class="Content">
+
+        <img [src]="baseUrl+fileData.File_data.filepath" width="100%" height="100%" #imageElement>
+        <!-- <img #imageElement src="https://image.slidesharecdn.com/09fcda31-712e-4cc8-9122-cc2161b78682-160217063531/95/obahh-scanned-documents-8-1024.jpg?cb=1455691013"> -->
+            </div>
         </div>
         <div style="margin-left: 10px; margin-top:10px;">
           <input type="number" name id="total" [(ngModel)]="total">
@@ -18,13 +20,13 @@
           <button class="btn btn-outline-primary me-2" (click)="undo()">
             <span class="badge badge-secondary me-2" id="undoValue">
               {{
-              undoValue }}
+              undoValue}}
             </span>
             &nbsp;Undo
           </button>
           <ng-container *ngIf="'*,*' not in filepath">
-            <a class="btn btn-outline-success" [href]="filepath">
-              Image source
+            <a class="btn btn-outline-success" (click)="openImageInNewTab()">
+              Open in new tab
             </a>
           </ng-container>
           <br>
@@ -40,7 +42,7 @@
             Zoom
             Out
           </button>
-          <button class="btn btn-primary" style="margin-top:10px" (click)=" rotate()">
+          <button class="btn btn-primary" style="margin-top:10px" (click)="rotate()">
             Rotate
           </button>
         </div>
@@ -54,17 +56,17 @@
         <div class="container p-0 m-0">
           <div class="row">
             <div class="col-4">
-              <div [appVerification]="fileData.File_data.extractedData?.is_date">
+              <div [appVerification]="this.fileData.File_data.extractedData?.is_date">
                 Date Verified
               </div>
             </div>
             <div class="col-4">
-              <div [appVerification]="fileData.File_data.extractedData?.is_name">
+              <div [appVerification]="this.fileData.File_data.extractedData?.is_name">
                 Name Verified
               </div>
             </div>
             <div class="col-4">
-              <div [appVerification]="fileData.File_data.extractedData?.is_val">
+              <div [appVerification]="this.fileData.File_data.extractedData?.is_val">
                 Amount Verified
               </div>
             </div>
@@ -86,13 +88,13 @@
               <input type="text" class="in-box mb-2" formControlName="declaredAmount">
             </div>
 
-            <div *ngIf="fileData.File_data.filetype_id === 'Rent'" class="grid-column">
+            <div *ngIf="this.fileData.File_data.filetype_id === 'Rent'" class="grid-column">
               <label>Date From</label>
-              <input type="date" formControlName="dateFrom" class="in-box mb-2">
+              <input type="text" formControlName="dateFrom" class="in-box mb-2">
             </div>
-            <div *ngIf="fileData.File_data.filetype_id === 'Rent'" class="grid-column">
+            <div *ngIf="this.fileData.File_data.filetype_id === 'Rent'" class="grid-column">
               <label>Date To</label>
-              <input type="date" formControlName="dateTo" class="in-box mb-2">
+              <input type="text" formControlName="dateTo" class="in-box mb-2">
             </div>
           </div>
         </form>
@@ -109,8 +111,8 @@
           </div>
           <div class="mb-1">
             <label for="filetype">File Type</label>
-            <select id="filetype" formControlName="filetypeActual" placeholder="File Type" class="in-box">
-              <option *ngFor="let option of fileData.file_types" [value]="option.filetype">
+            <select id="filetype" formControlName="filetypeActual" placeholder="File Type" class="in-box" (change)="fileType($event)" >
+              <option *ngFor="let option of fileData.file_types; let i=index" [value]="option.filetype">
                 {{ option.filetype }}
               </option>
             </select>
@@ -121,9 +123,9 @@
           </div>
           <div *ngIf="fileData.File_data.filetype_id.toLowerCase() === 'rent'">
             <label>From Date</label>
-            <input type="date" formControlName="fromDateActual" placeholder="from date" class="in-box mb-2" />
+            <input type="text" formControlName="fromDateActual" placeholder="from date" class="in-box mb-2" />
             <label>To Date</label>
-            <input type="date" formControlName="toDateActual" placeholder="to date" class="in-box mb-2" />
+            <input type="text" formControlName="toDateActual" placeholder="to date" class="in-box mb-2" />
             <div>
               <label>Metro</label>
               <div style="display: flex;">
@@ -139,24 +141,23 @@
           <div class="mb-1">
             <label for="remark">Remarks</label>
             <select id="remark" formControlName="remarks" class="in-box">
-                <option *ngFor="let remark of fileData.file_types" [value]="remark.remarks">
-                  {{ remark.remarks }}
+                <option *ngFor="let remark of this.remark" [value]="remark.remarks">
+                  {{ remark }}
                 </option>
               </select>
-
-            <div style="color:red"
+            <!-- <div style="color:red"
               *ngIf="extractForm.controls['remarks'].errors && extractForm.controls['remarks'].touched">
               field is required
-            </div>
+            </div> -->
           </div>
           <div class="mb-1">
             <label for="cus_remark">Custom Remarks</label>
             <textarea id="cus_remark" placeholder="Enter Custom Remarks" formControlName="c_remarks"
               class="in-box "></textarea>
-            <div style="color:red"
+            <!-- <div style="color:red"
               *ngIf="extractForm.controls['c_remarks'].errors && extractForm.controls['c_remarks'].touched">
               field is required
-            </div>
+            </div> -->
           </div>
           <button type="submit" class="btn btn-success" (click)="
             verifyFile()" style="background-color:#21ba45; border: none;" [disabled]="extractForm.invalid">Verify

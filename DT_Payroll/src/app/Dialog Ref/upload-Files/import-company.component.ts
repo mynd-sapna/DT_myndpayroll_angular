@@ -72,15 +72,15 @@ export class ImportCompanyComponent implements OnInit {
   }
 
   public callYourAPI(company: string, filetype: string) {
-    this.apiService.getSampleFile().subscribe(
-      (responseBlob: Blob) => {
-        this.createDownloadLink(responseBlob, `${company}_${filetype}.pdf`);
-      },
-      (error) => {
-        console.error('API call error:', error);
-      }
-    );
-    console.log('API called with company:', company, 'and filetype:', filetype);
+    // this.apiService.getSampleFile().subscribe(
+    //   (responseBlob: Blob) => {
+    //     this.createDownloadLink(responseBlob, `${company}_${filetype}.pdf`);
+    //   },
+    //   (error) => {
+    //     console.error('API call error:', error);
+    //   }
+    // );
+    // console.log('API called with company:', company, 'and filetype:', filetype);
   }
 
   private createDownloadLink(blob: Blob, filename: string) {

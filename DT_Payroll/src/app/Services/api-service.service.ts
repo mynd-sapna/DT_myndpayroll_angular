@@ -20,7 +20,7 @@ import {
   IVerify,
   IVerifyResponse,
   Idownload,
-  agent_queue,
+  agent_queue, FileData
 } from '../Models/generaldata';
 
 import { Router } from '@angular/router';
@@ -50,6 +50,18 @@ export class ApiServiceService {
     return this.http.post<IAgentQueueResponse>(`${this.baseURL}/get_agent_queue`, data);
   }
 
+
+
+  getVerificationViewData(id: string): Observable<any> {
+    const url = this.getVerificationViewUrl(id);
+    return this.http.get(url);
+  }
+
+  getVerificationViewUrl(id: string): string {
+    return `${this.baseURL}/static`;
+  }
+
+
   getGeneralData(): Observable<IGeneralData> {
     return this.http.get<IGeneralData>(`${this.baseURL}/get_general_data`);
   }
@@ -76,11 +88,10 @@ export class ApiServiceService {
     return this.http.get<IAgentSummary>(`${this.baseURL}/get_all_agents_data/?company=${company}`, httpOptions);
   }
 
-  Allocate(values: IMiddle): Observable<IAllocateResponse> {
+  Allocate(values: any): Observable<IAllocateResponse> {
     const headers = { 'Content-Type': 'application/json' };
     return this.http.post<any>(`${this.baseURL}/set_agent`, values, { headers });
   }
-
   verify(values: any): Observable<IVerifyResponse> {
     return this.http.post<any>(`${this.baseURL}/set_verification`, values)
   }
@@ -90,7 +101,7 @@ export class ApiServiceService {
   }
 
   createCompany(values: any): Observable<any> {
-    return this.http.post(`${this.baseURL}/company/`, values,{ ...Option, responseType: 'text' }).pipe(
+    return this.http.post(`${this.baseURL}/company/`, values, { ...Option, responseType: 'text' }).pipe(
       catchError((error) => {
         console.error('An error occurred:', error);
         return throwError('Something went wrong. Please try again later.');
@@ -99,7 +110,7 @@ export class ApiServiceService {
   }
 
   masterfile(data: FormData): Observable<any> {
-    return this.http.post(`${this.baseURL}/master_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
+    return this.http.post(`${this.baseURL}/master_upload/`, data, { ...Option, responseType: 'text' }).pipe(
       catchError((error) => {
         console.error('An error occurred:', error);
         return throwError('Something went wrong. Please try again later.');
@@ -108,7 +119,7 @@ export class ApiServiceService {
   }
 
   rentfile(data: FormData): Observable<any> {
-     return this.http.post(`${this.baseURL}/rent_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
+    return this.http.post(`${this.baseURL}/rent_upload/`, data, { ...Option, responseType: 'text' }).pipe(
       catchError((error) => {
         console.error('An error occurred:', error);
         return throwError('Something went wrong. Please try again later.');
@@ -117,7 +128,7 @@ export class ApiServiceService {
   }
 
   chapterfile(data: FormData): Observable<any> {
-    return this.http.post(`${this.baseURL}/chapter6_upload/`, data,{ ...Option, responseType: 'text' }).pipe(
+    return this.http.post(`${this.baseURL}/chapter6_upload/`, data, { ...Option, responseType: 'text' }).pipe(
       catchError((error) => {
         console.error('An error occurred:', error);
         return throwError('Something went wrong. Please try again later.');
@@ -126,7 +137,7 @@ export class ApiServiceService {
   }
 
   housefile(data: FormData): Observable<any> {
-    return this.http.post(`${this.baseURL}/house_upload/`,data ,{ ...Option, responseType: 'text' }).pipe(
+    return this.http.post(`${this.baseURL}/house_upload/`, data, { ...Option, responseType: 'text' }).pipe(
       catchError((error) => {
         console.error('An error occurred:', error);
         return throwError('Something went wrong. Please try again later.');
@@ -142,19 +153,28 @@ export class ApiServiceService {
     });
   }
 
-  download(values: any): Observable<any> {
+  download(values: any): Observable<Blob> {
     const headers = new HttpHeaders({
-    })
-    return this.http.post<any>(`${this.baseURL}/download/`, values, { headers: headers });
+      'Authorization': 'Basic YWRtaW46YWRtaW4=', // Replace with your Base64-encoded credentials
+    });
+    return this.http.post(`${this.baseURL}/download/`, values, {
+      headers: headers,
+      responseType: 'blob',
+
+    });
   }
 
-  getSampleFile(): Observable<Blob> {
-    return this.http.get(`${this.baseURL}/`, { responseType: 'blob' });
+
+  ocrfiles1(data): Observable<any> {
+    return this.http.post(`${this.baseURL}/ocr_rent/`, data).pipe(
+      catchError((error) => {
+        console.error('An error occurred:', error);
+        return throwError('Something went wrong. Please try again later.');
+      })
+    );
   }
-
-
-  ocrfiles(data: FormData): Observable<any> {
-    return this.http.post(`${this.baseURL}/ocr/`, data,{ ...Option, responseType: 'text' }).pipe(
+  runMeth(data): Observable<any> {
+    return this.http.post("https://idppayroll.myndsolution.com/api/run_meth/", data).pipe(
       catchError((error) => {
         console.error('An error occurred:', error);
         return throwError('Something went wrong. Please try again later.');
@@ -163,5 +183,67 @@ export class ApiServiceService {
   }
 
 
-}
+  getchapSampleFile(): Observable<HttpResponse<Blob>> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    const endpoint = `${this.baseURL}/SampleChapter6/`;
+    return this.http.get(endpoint, {
+      headers: headers,
+      observe: 'response',
+      responseType: 'blob',
+    });
+  }
 
+  getrentSampleFile(): Observable<HttpResponse<Blob>> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    const endpoint = `${this.baseURL}/SampleRent//`;
+    return this.http.get(endpoint, {
+      headers: headers,
+      observe: 'response',
+      responseType: 'blob',
+    });
+
+  }
+
+  getMasterSampleFile(): Observable<HttpResponse<Blob>> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    const endpoint = `${this.baseURL}/SampleMaster/`;
+    return this.http.get(endpoint, {
+      headers: headers,
+      observe: 'response',
+      responseType: 'blob',
+    });
+  }
+
+  gethouseSampleFile(): Observable<HttpResponse<Blob>> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    const endpoint = `${this.baseURL}/SampleHome/`;
+    return this.http.get(endpoint, {
+      headers: headers,
+      observe: 'response',
+      responseType: 'blob',
+    });
+  }
+
+  makeApiRequest() {
+    const apiUrl = 'https://idppayroll.myndsolution.com/api/ocr_rent/';
+
+    this.http.get(apiUrl).subscribe(
+      (data: any) => {
+        console.log('API Response:', data);
+        // Handle the API response data here
+      },
+      (error) => {
+        console.error('API Error:', error);
+        // Handle any API errors here
+      }
+    );
+  }
+}

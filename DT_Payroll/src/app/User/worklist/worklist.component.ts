@@ -69,6 +69,8 @@ export class WorklistComponent {
       this.ApiServiceService.getQueue(this.id).subscribe(
         (response: IAgentQueueResponse) => {
           this.agentQueue = response.Queue;
+          console.log(response.Queue,'response.Queue');
+
           this.loadingInitial = false;
           this.dataSource = response.Queue;
           this.vLoading = false;
@@ -80,6 +82,7 @@ export class WorklistComponent {
       }, 1000);
     }
   }
+
 
   getCurrentUsers(user: IUser) {
     this.AuthServiceService.getCurrentUser(this.id).subscribe((data: any) => {
@@ -99,14 +102,16 @@ export class WorklistComponent {
           this.pending = 0;
         });
  }
+
  viewQueueItem(id: string): void {
   const navigationExtras: NavigationExtras = {
     queryParams: {
       id: id
     }
   };
+
   this.Router.navigate(['/manage'], navigationExtras);
-  console.warn('navigationExtras', navigationExtras);
+  // console.warn('navigationExtras', navigationExtras);
 }
 
 }

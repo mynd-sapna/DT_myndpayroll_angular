@@ -1,8 +1,8 @@
-<div class="container-fluid px-5 mb-5">
-  <div class="process-box mt-5">
+<div class="container-fluid mt-5 p-4">
+  <h2>Payroll Output</h2>
+  <div class="process-box">
     <form (ngSubmit)="submitData()" [formGroup]="downloadForm">
       <div class="jumbotron">
-        <h1>Payroll Output</h1>
         <p>
           You can download your output sheets here.
         </p>
@@ -14,7 +14,6 @@
           <br>
           <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'" id="company"
             [settings]="dropdownSettings" [data]="companylst?.Companies" class="singleselect"></ng-multiselect-dropdown>
-
           <div
             *ngIf="downloadForm.get('company').invalid && (downloadForm.get('company').dirty || downloadForm.get('company').touched)"
             class="error mt-1">
@@ -24,17 +23,18 @@
           </div>
         </div>
         <div class="col-4 mb-4">
-          <label>select File Type</label> <br>
-          <select formControlName="filetype" id="type" required>
-            <option value="null">Select file type</option>
+          <label>Select File Type</label> <br>
+          <select formControlName="type" id="type" required>
+            <option value="" selected>Select file type</option>
             <option value="InvestmentProof-ChapterVIA">InvestmentProof-ChapterVIA</option>
             <option value="RentDetails">RentDetails</option>
             <option value="HousePropertyDetails">HousePropertyDetails</option>
           </select>
+  
           <div
-            *ngIf="downloadForm.get('filetype').invalid && (downloadForm.get('filetype').dirty || downloadForm.get('filetype').touched)"
+            *ngIf="downloadForm.get('type').invalid && (downloadForm.get('type').dirty || downloadForm.get('type').touched)"
             class="error mt-1">
-            <div *ngIf="downloadForm.get('filetype').errors.required">
+            <div *ngIf="downloadForm.get('type').errors.required">
               filetype is required
             </div>
           </div>

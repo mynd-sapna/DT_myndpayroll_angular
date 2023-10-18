@@ -24,7 +24,7 @@ export class AuthInterceptor implements HttpInterceptor {
     console.log('Is Logged In:', isLoggedIn);
     if (isLoggedIn && isApiUrl) {
       request = request.clone({
-        setHeaders: { Authorization: `Bearer ${token}` }
+       
       });
     }
 

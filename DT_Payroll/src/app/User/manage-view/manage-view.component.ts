@@ -20,6 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ManageViewComponent implements OnInit {
   @ViewChild('imageElement', { static: true }) imageElement: ElementRef<HTMLImageElement> | any;
+  imageUrl: string; // Define the image URL
   panelform: FormGroup | any;
   textareaValue: string = '';
   selectedOption: any;
@@ -47,17 +48,23 @@ export class ManageViewComponent implements OnInit {
   user: any;
   remarksList: any;
   fileData: IFileDataResponse | any;
-  @observable file_type_list: IFile_Types[] | null = null;
   Filetype: any;
   extension: string = '';
   files: string[] = [];
   numOfFiles: number = 0;
   otherform: FormGroup | any;
   locals: any = JSON.parse(localStorage.getItem('user') || '{}');
+  id: any;
+  fileContent: Blob | undefined;
+  remark: any;
+  baseUrl: string = 'https://idppayroll.myndsolution.com'
+  imageHistory: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router, private route: ActivatedRoute, private AuthServiceService: AuthServiceService, private toast: ToastrService,
     private ApiServiceService: ApiServiceService, private http: HttpClient) {
+
     //panel form
     this.panelform = this.formBuilder.group({
       name: [{ value: '', disabled: true }],
@@ -91,11 +98,20 @@ export class ManageViewComponent implements OnInit {
     });
     this.loading = false;
   }
-  isRentFileTypeSelected(): boolean {
-    const fileType = this.extractForm.get('filetypeActual')?.value;
-    return fileType && fileType.toLowerCase() === 'rent';
-  }
+
   ngOnInit(): void {
+    this.extractForm.valueChanges.subscribe((formData) => {
+      this.panelform.patchValue({
+        remarks: this.fileData.File_data.remarks,
+      });
+      console.log(formData, 'wdd');
+    });
+    this.extractForm.valueChanges.subscribe((formData) => {
+      this.panelform.patchValue({
+        remarks: this.fileData.File_data.remarks,
+      });
+      console.log(formData, 'wdd');
+    });
     this.localStorageId = JSON.parse(localStorage.getItem('user') || '{}');
     this.localStorageId = this.localStorageId.id;
     console.log('localStorageId:', this.localStorageId);
@@ -105,15 +121,69 @@ export class ManageViewComponent implements OnInit {
       this.loadExtractedFile(this.queryParamId);
       const fileId = params['fileId'];
     });
+    this.extension = '';
+    this.files = [];
+    this.numOfFiles = 0;
+    console.log(this.queryParamId, 'this.queryParamId');
+    this.id = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log(this.id, 'this.id');
+    this.setRemarksFromIndex(0);
+    console.log();
+
   }
+
+  getImageUrl(file: string): string {
+    return `${'https://idppayroll.myndsolution.com'}/static/${file}`;
+  }
+
+  uploadFile(file: any) {
+
+    this.ApiServiceService.getQueue(this.id.id).subscribe(
+      (response: any) => {
+        // console.log(response.Queue, 'response.Queue');
+        for (const obj of response.Queue) {
+          // console.log(obj, 'obj.id');
+          // console.log(this.queryParamId, 'this.queryParamId');
+          if (obj.id == this.queryParamId) {
+            // console.log(obj.filename, 'obj.filename');
+          }
+        }
+      },
+    );
+  }
+
+
+
+  getimges() {
+    if (!!this.user) {
+      this.ApiServiceService.getData(this.id.id).subscribe(
+        (response: any) => {
+          console.log(response.Queue, 'response.Queue');
+          for (const obj of response.Queue) {
+            console.log(obj, 'obj.id');
+            console.log(this.queryParamId, 'this.queryParamId');
+            if (obj.id == this.queryParamId) {
+              console.log(obj.filename, 'obj.filename');
+            }
+          }
+        },
+      );
+    }
+  }
+
   loadExtractedFile(id: string): void {
+    console.log(id, 'id');
     this.ApiServiceService.getData(id).subscribe(
       (fileData: any) => {
         if (this.imageElement && this.fileData && this.fileData.filepath) {
           this.imageElement.nativeElement.src = this.fileData.filepath;
         }
         this.fileData = fileData;
+        const startIndex = this.filepath.indexOf("/images/");
+        console.log(fileData, 'fileData');
+        console.log(fileData.filepath, 'fileData');
         console.log(fileData.employee_data.name)
+        console.log(fileData?.inv_data?.remarks, 'fileData?.inv_data?.fromDate')
         this.panelform.patchValue({
           name: fileData.employee_data.name,
           empCode: fileData.employee_data.empCode,
@@ -121,6 +191,17 @@ export class ManageViewComponent implements OnInit {
           dateFrom: fileData?.inv_data?.fromDate ? fileData.inv_data.fromDate.split(" ")[0] : '',
           dateTo: fileData?.inv_data?.toDate ? fileData.inv_data.toDate.split(" ")[0] : '',
         });
+        // this.fileType(fileData.filetype_id
+        //   );
+        for (let index = 0; index < this.fileData.file_types.length; index++) {
+          const element = this.fileData.file_types[index];
+          console.log(element, 'elementt');
+          if (this.fileData.file_types[index].filetype == fileData.File_data.filetype_id) {
+            this.remark = this.fileData.file_types[index].remarks
+            console.log(this.remark, 'this.remark');
+          }
+        }
+
         this.extractForm.patchValue({
           amountApproved: !fileData.File_data.extractedData
             ? 0
@@ -128,6 +209,7 @@ export class ManageViewComponent implements OnInit {
           filetypeActual: !fileData.File_data
             ? null
             : fileData.File_data.filetype_id,
+
           remarks: !fileData.File_data ? null : fileData.File_data.remarks,
           fromDateActual: !fileData.inv_data.fromDate
             ? null
@@ -152,11 +234,38 @@ export class ManageViewComponent implements OnInit {
           LL_Name: this.fileData.inv_data.otherData.LL_Name,
           LL_Address: this.fileData.inv_data.otherData.LL_Address
         });
+        if (this.imageElement && fileData && fileData.filepath) {
+          this.imageElement.nativeElement.src = fileData.filepath;
+          console.log();
+        }
       },
       (error) => {
         console.log(error);
       }
     );
+  }
+
+
+  fileType(file: any) {
+    console.log('hyy');
+    console.log(file.target.value, 'file.target.value');
+    console.log(this.fileData.file_types, 'this.fileData.file_types');
+    for (let index = 0; index < this.fileData.file_types.length; index++) {
+      const element = this.fileData.file_types[index];
+      console.log(element, 'element');
+      if (this.fileData.file_types[index].filetype == file.target.value) {
+        this.remark = this.fileData.file_types[index].remarks
+      }
+    }
+  }
+
+  setRemarksFromIndex(index: number): void {
+    if (this.fileData && this.fileData.file_types && this.fileData.file_types.length > index) {
+      this.extractForm.patchValue({
+        remarks: this.fileData.file_types[index].remarks,
+
+      });
+    }
   }
   onSubmit() {
     if (this.panelform.valid) {
@@ -175,40 +284,7 @@ export class ManageViewComponent implements OnInit {
     console.log(list);
     this.remarksList = list;
   }
-  // verifyFile(): void {
-  //   if (this.extractForm.valid) {
-  //     const values = this.extractForm.value;
-  //     const customRemarks: string | any = values.c_remarks?.trim();
-  //     const requestData = {
-  //       currentFileId: this.fileData.File_data.id,
-  //       amountApproved: values.amountApproved,
-  //       filetypeActual: values.filetypeActual,
-  //       remarks: !customRemarks
-  //         ? values.remarks
-  //         : customRemarks.length <= 0
-  //           ? values.remarks
-  //           : customRemarks,
-  //       userId: 'this.id', // Replace with the actual user ID
-  //       fromDateActual: values.fromDateActual,
-  //       toDateActual: values.toDateActual,
-  //       metro: values.metro
-  //     };
-  //     this.ApiServiceService.verify(values).subscribe(
-  //       (response: any) => {
-  //         if (response && !response.Next) {
-  //           this.toastr.success('Verification successful. End of Queue reached');
-  //           this.router.navigate(['/worklist']);
-  //         } else {
-  //           this.toastr.success('Verification successful. Loading next file');
-  //           this.router.navigate([`/manage/${response.Next}`]);
-  //         }
-  //       },
-  //       (error: any) => {
-  //         this.toastr.error('Error Verifying. Please retry or contact support.');
-  //       }
-  //     );
-  //   }
-  // }
+
   verifyFile(): void {
     if (this.extractForm.valid) {
       const values = this.extractForm.value;
@@ -238,6 +314,9 @@ export class ManageViewComponent implements OnInit {
             // Next file available in the queue
             this.toast.success('Verification successful. Loading next file');
             this.router.navigate(['/manage'], { queryParams: { id: response.Next } });
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
           }
         },
         (error: any) => {
@@ -256,19 +335,33 @@ export class ManageViewComponent implements OnInit {
   isAmountVerified(): boolean {
     return this.fileData.File_data.extractedData?.is_val || false;
   }
+
   copyTotal() {
-    const image: HTMLImageElement = this.imageElement.nativeElement;
-    const imageUrl = "https://images.template.net/wp-content/uploads/2017/02/28085413/Cover-Letter-for-Job-Application-in-Doc.jpg";
-    this.clipboardService.copyFromContent(imageUrl);
+    if (this.filepath) {
+      const image: HTMLImageElement = this.imageElement.nativeElement;
+      const imageUrl = this.baseUrl + this.fileData.File_data.filepath;
+      this.clipboardService.copyFromContent(imageUrl);
+    }
   }
+
   updateValue(newValue: any) {
     this.previousValue = this.total;
     this.total = newValue;
   }
+
+
+  clearTotal() {
+    const image: HTMLImageElement = this.imageElement.nativeElement;
+    this.imageHistory.push(image.src); // Save the current image src to the history
+    image.src = 'image/path';
+  }
+
   undo() {
-    if (this.previousValue !== undefined) {
-      this.total = this.previousValue;
-      this.previousValue = undefined;
+    const image: HTMLImageElement = this.imageElement.nativeElement;
+    if (this.imageHistory.length > 0) {
+      // Get the previous image src from the history and remove it from the history
+      const previousImageSrc = this.imageHistory.pop();
+      image.src = previousImageSrc;
     }
   }
   zoomIn() {
@@ -293,25 +386,23 @@ export class ManageViewComponent implements OnInit {
     const newRotation = currentRotation + rotationIncrement;
     image.style.transform = `rotate(${newRotation}deg)`;
   }
+
   addToTotal() {
     if (this.filepath !== '*.*,*') {
       window.open(this.filepath, '_blank');
     }
   }
-  clearTotal() {
-    const image: HTMLImageElement = this.imageElement.nativeElement;
-    image.src = 'image/path';
-  }
-  getPdfUrl(file: string) {
-    // return `${process.env['']}/static/${file}`;
-  }
 
-  getImageUrl(file: string) {
-    // return `${process.env}/api/verification_view/?id=${file}`;
-  }
+
+
   validateForm() {
     this.invalid = this.extractForm.invalid;
   }
 
+  openImageInNewTab(): void {
+    if (this.filepath) {
+      window.open(this.baseUrl + this.fileData.File_data.filepath, '_blank');
+    }
+  }
 }
 

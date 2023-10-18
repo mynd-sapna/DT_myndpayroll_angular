@@ -9,7 +9,7 @@ import {
   FormControl,
 } from "@angular/forms";
 import { tap } from "rxjs";
-import { Router } from "@angular/router";
+import { NavigationExtras, Router } from "@angular/router";
 import { IUser, IUserFormValues } from "src/app/Models/generaldata";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
@@ -24,11 +24,13 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup | any;
   submitError: string | any;
   onloading = false;
+  locals :any = JSON.parse(localStorage.getItem('user') || '{}');
   user: IUser | null = null; auto: any;
   public showPassword: boolean = false;
   isAdmin: any;
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
+
   }
   constructor(
     private formBuilder: FormBuilder,
@@ -48,6 +50,7 @@ export class LoginComponent implements OnInit {
       // username: ['', [Validators.required, Validators.pattern(/^[A-Z]{2}\d{5}$/)]],
       // password: ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9]{8}$/)]]
     });
+    this.locals = this.locals.id;
   }
   private getUser(token: string): void {
     this.authservice.getCurrentUser(token).pipe(
@@ -85,7 +88,7 @@ export class LoginComponent implements OnInit {
               console.log("User is logged in");
               this.Router.navigate(['/allocation']);
             } else {
-              this.Router.navigate(['/create-company']);
+              this.Router.navigate(['/worklist']);
             }
             // Close the dialog after successful login
             // this.dialogRef.close();
@@ -122,5 +125,6 @@ export class LoginComponent implements OnInit {
   isloginValid(): boolean {
     return this.loginForm.valid;
   }
+
 
 }

@@ -41,33 +41,31 @@ export class CreateCompanyComponent {
       companyName: ['', Validators.required],
     });
   }
-  onSave(): void {
-    if (this.createcompForm.invalid) {
-      this.submitError = 'Please fill in all the required fields.';
-      return;
-    }
 
-    const companyData = {
-      name: this.createcompForm.get('companyName')?.value,
-    };
-
-    this.apiService.createCompany(companyData).subscribe(
-      (response: any) => {
-        // if (response === 'success')
-        //   this.toast.success('Company Created Successfully!');
-        // else if (response === 'exists') {
-        //   this.toast.error('A company with that name already exists. Try again later');
-        // } else {
-        //   this.toast.error('An error occurred. Please try again later.');
-        // }
-        this.toast.success(JSON.parse(response).message);
-        this.dialogRef.close();
-      },
-      (error: any) => {
-        this.toast.error('A company with that name is already exists. please Try again later.');
-        this.dialogRef.close();
-      }
-    );
+onSave(): void {
+  if (this.createcompForm.invalid) {
+    this.submitError = 'Please fill in all the required fields.';
+    return;
   }
+
+  const companyData = {
+    name: this.createcompForm.get('companyName')?.value,
+  };
+
+  this.apiService.createCompany(companyData).subscribe(
+    (response: any) => {
+      this.toast.success(JSON.parse(response).message);
+
+      // Reload the page after a short delay (e.g., 1 second)
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    },
+    (error: any) => {
+      this.toast.error('A company with that name already exists. Please try again later.');
+      this.dialogRef.close();
+    }
+  );
+}
 
 }

@@ -16,4 +16,3 @@ describe('AllocationComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-w

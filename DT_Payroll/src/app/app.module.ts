@@ -46,6 +46,7 @@ import { PayrollOutputCredComponent } from './Dialog Ref/payroll-output-cred/pay
 import { AuthGuard } from 'src/auth/auth.guard';
 import { EjsUploaderComponent } from './ejs-uploader/ejs-uploader.component';
 import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
+import { FileViewerComponent } from './file-viewer/file-viewer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +67,7 @@ import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
     CreateCompanyComponent,
     PayrollOutputCredComponent,
     EjsUploaderComponent,
+    FileViewerComponent,
   ],
   imports: [
     BrowserModule,

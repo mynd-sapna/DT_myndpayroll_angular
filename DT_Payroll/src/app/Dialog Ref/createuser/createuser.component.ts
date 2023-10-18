@@ -65,19 +65,22 @@ export class CreateuserComponent implements OnInit {
           this.onloading = false;
           if (response != null) {
             this.toast.success('User Created Successfully!'); // Show success toast message
-            this.Router.navigate(['/allocation']);
+            setTimeout(() => {
+              window.location.reload();
+            },1000);
           } else {
             this.submitError = 'Invalid credentials';
           }
         },
         (error: any) => {
           this.onloading = false;
-          this.toast.error('A user with that username already exists.Try again later'); // Show error toast message
+          this.toast.error('A user with that username already exists. Try again later.'); // Show error toast message
           console.error(error);
         }
       );
     }
   }
+
   closeAll() {
     if (this.createUserForm.valid) {
     };

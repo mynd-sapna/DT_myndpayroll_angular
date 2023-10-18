@@ -50,7 +50,27 @@ export interface FileCountsUnallocated {
   verified: number;
 }
 
+export class AllocationRequest implements IAllocateRequest {
+  agent?: number;
+  company: string;
+  filetype?: string;
+  assign_agent: number;
+  count: number;
 
+  constructor(
+    company: string,
+    assign_agent: number,
+    count: number,
+    agent?: number,
+    filetype?: string
+  ) {
+    this.agent = agent;
+    this.company = company;
+    this.filetype = filetype;
+    this.assign_agent = assign_agent;
+    this.count = count;
+  }
+}
 
 export interface IFilteredDataResponse {
   File_counts: IFilecount[];
@@ -140,6 +160,11 @@ export interface IAgentStatus {
   verified: number;
   unverified: number;
   Success: string;
+}
+export interface FileData {
+  id: number;
+  filename: string;
+  // Add other properties as needed
 }
 export interface agentQueue {
   verified: number;
