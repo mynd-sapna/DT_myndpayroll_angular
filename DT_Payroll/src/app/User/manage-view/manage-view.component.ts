@@ -81,7 +81,7 @@ export class ManageViewComponent implements OnInit {
       toDateActual: [''],
       metro: [''],
       remarks: ['', Validators.required],
-      c_remarks: [''],
+      c_remarks: ['', Validators.required],
     });
     //other form data
     this.otherform = this.formBuilder.group({
@@ -121,6 +121,8 @@ export class ManageViewComponent implements OnInit {
       this.loadExtractedFile(this.queryParamId);
       const fileId = params['fileId'];
     });
+
+
     this.extension = '';
     this.files = [];
     this.numOfFiles = 0;
