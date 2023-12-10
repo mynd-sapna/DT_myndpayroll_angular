@@ -125,3 +125,27 @@ label {
     stroke-dashoffset: -124px;
   }
 }
+.pdf-viewer {
+  height: 100vh;
+}
+.pdf-viewer-container {
+  width: 50%;
+  overflow-y: scroll; /* Adjust the width as needed */
+  height: 70vh; /* Adjust the height as needed */
+}
+.ng2-pdf-viewer-container {
+  position: relative !important; /* Set to relative */
+
+}
+
+.ng2-pdf-viewer-container[_ngcontent-xau-c0] {
+  position: relative !important; /* Set to relative */
+  overflow-x: auto;
+  height: 100%;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ng2-pdf-viewer-container .textLayer{
+  position: relative !important;
+}

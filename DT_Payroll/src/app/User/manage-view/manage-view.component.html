@@ -2,13 +2,21 @@
   <div class="row">
     <div class="col-12 col-sm-9">
       <div class="process-box">
-        <div class="col-sm-12" style="overflow: scroll; height: 70vh;">
-          <div class="Content">
+        <div class="col-sm-12" style="overflow: scroll; height: 70vh; position: relative !important;">
+         <div class="Content">
 
-        <img [src]="baseUrl+fileData.File_data.filepath" width="100%" height="100%" #imageElement>
-        <!-- <img #imageElement src="https://image.slidesharecdn.com/09fcda31-712e-4cc8-9122-cc2161b78682-160217063531/95/obahh-scanned-documents-8-1024.jpg?cb=1455691013"> -->
-            </div>
+
+          <ng-container *ngIf="fileExtension === 'pdf'; else imageContent">
+            <pdf-viewer src="./assets/images/Profile.pdf"
+            style="display: block !important; margin:auto; position: relative !important;"
+            ></pdf-viewer>
+          </ng-container>
+          <ng-template #imageContent>
+    <img [src]="baseUrl+fileData.File_data.filepath"  #imageElement>
+          </ng-template>
         </div>
+        </div>
+
         <div style="margin-left: 10px; margin-top:10px;">
           <input type="number" name id="total" [(ngModel)]="total">
           <button class="btn btn-outline-success ms-2 mx-2" (click)="copyTotal()">
@@ -198,3 +206,4 @@
     </div>
   </div>
 </div>
+

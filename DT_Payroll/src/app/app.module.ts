@@ -1,4 +1,6 @@
+
 import { AdminGuard } from './../auth/admin.guard';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {
   HTTP_INTERCEPTORS,
   HttpClient,
@@ -70,6 +72,7 @@ import { FileViewerComponent } from './file-viewer/file-viewer.component';
     FileViewerComponent,
   ],
   imports: [
+    PdfViewerModule,
     BrowserModule,
     UploaderModule,
     AppRoutingModule,
@@ -96,7 +99,7 @@ import { FileViewerComponent } from './file-viewer/file-viewer.component';
       multi:true
     },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    AuthServiceService, 
+    AuthServiceService,
     ExtractionStoreService,
     AuthGuard],
   bootstrap: [AppComponent],

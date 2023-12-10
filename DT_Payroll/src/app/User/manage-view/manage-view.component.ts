@@ -13,6 +13,7 @@ import { IFileDataResponse, IFile_Types } from 'src/app/Models/filedata';
 import { Observer } from 'rxjs';
 import { observable, values } from 'mobx';
 import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-manage-view',
   templateUrl: './manage-view.component.html',
@@ -27,7 +28,6 @@ export class ManageViewComponent implements OnInit {
   vertices = [];
   total = 0;
   undoValue: number | null = null;
-  filepath = 'image/path';
   previousValue: null | any;
   clipboardService: any;
   filelst: any;
@@ -59,12 +59,12 @@ export class ManageViewComponent implements OnInit {
   remark: any;
   baseUrl: string = 'https://idppayroll.myndsolution.com'
   imageHistory: any;
-
+  filepath: any;
+  isPdf: boolean;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router, private route: ActivatedRoute, private AuthServiceService: AuthServiceService, private toast: ToastrService,
     private ApiServiceService: ApiServiceService, private http: HttpClient) {
-
     //panel form
     this.panelform = this.formBuilder.group({
       name: [{ value: '', disabled: true }],
@@ -99,6 +99,16 @@ export class ManageViewComponent implements OnInit {
     this.loading = false;
   }
 
+  get fileExtension(): string {
+    // Extract the file extension from the file path
+    const filePath = this.fileData?.File_data?.filepath;
+    if (filePath) {
+      const extension = filePath.split('.').pop();
+      return extension ? extension.toLowerCase() : '';
+    }
+    return '';
+  }
+
   ngOnInit(): void {
     this.extractForm.valueChanges.subscribe((formData) => {
       this.panelform.patchValue({
@@ -131,6 +141,9 @@ export class ManageViewComponent implements OnInit {
     console.log(this.id, 'this.id');
     this.setRemarksFromIndex(0);
     console.log();
+    if (this.fileData && this.fileData.filepath) {
+      this.isPdf = this.fileData.File_data.filepath.toLowerCase().endsWith('.pdf');
+    }
 
   }
 
@@ -139,7 +152,6 @@ export class ManageViewComponent implements OnInit {
   }
 
   uploadFile(file: any) {
-
     this.ApiServiceService.getQueue(this.id.id).subscribe(
       (response: any) => {
         // console.log(response.Queue, 'response.Queue');
@@ -153,8 +165,6 @@ export class ManageViewComponent implements OnInit {
       },
     );
   }
-
-
 
   getimges() {
     if (!!this.user) {
@@ -181,7 +191,6 @@ export class ManageViewComponent implements OnInit {
           this.imageElement.nativeElement.src = this.fileData.filepath;
         }
         this.fileData = fileData;
-        const startIndex = this.filepath.indexOf("/images/");
         console.log(fileData, 'fileData');
         console.log(fileData.filepath, 'fileData');
         console.log(fileData.employee_data.name)
@@ -246,8 +255,6 @@ export class ManageViewComponent implements OnInit {
       }
     );
   }
-
-
   fileType(file: any) {
     console.log('hyy');
     console.log(file.target.value, 'file.target.value');
