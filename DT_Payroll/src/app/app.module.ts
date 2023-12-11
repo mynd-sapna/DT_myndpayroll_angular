@@ -39,7 +39,7 @@ import { VerificationDirective } from './verification.directive';
 import { ToastrModule } from 'ngx-toastr';
 import { MaterialModule } from './Material/material.module';
 import { AuthInterceptor } from 'src/auth/auth.interceptor';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+// import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ImportCompanyComponent } from './Dialog Ref/upload-Files/import-company.component';
 import { CreateCompanyComponent } from './Dialog Ref/create-company/create-company.component';
 import { CreateuserComponent } from './Dialog Ref/createuser/createuser.component';
@@ -76,6 +76,7 @@ import { ProcessCompanyComponent } from './Dialog Ref/process-company/process-co
   imports: [
   //  NgSelectModule,
     // PdfViewerModule,
+    // NgMultiSelectDropDownModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -84,7 +85,7 @@ import { ProcessCompanyComponent } from './Dialog Ref/process-company/process-co
     ReactiveFormsModule,
     NgbPaginationModule,
     NgbDropdownModule,
-    MaterialModule,NgMultiSelectDropDownModule,MatSnackBarModule,
+    MaterialModule,MatSnackBarModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',
