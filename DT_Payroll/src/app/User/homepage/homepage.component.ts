@@ -108,7 +108,7 @@ import {
             localStorage.setItem('jwt', response.id.toString());
             if (response.admin) {
               console.log("User is logged in");
-              this.router.navigate(['/allocation']);
+              this.router.navigate(['/dashboard']);
             } else {
               this.router.navigate(['/worklist']);
             }

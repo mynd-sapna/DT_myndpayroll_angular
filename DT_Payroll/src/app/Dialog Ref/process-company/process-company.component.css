@@ -1,0 +1,105 @@
+
+.save-btn {
+  border: none;
+  background-color: #2196f3;
+  color: white;
+  padding:25px 40px;
+  font-size:large;
+}
+.title-text {
+  font-weight: bold;
+  font-size: 20px;
+  color:white;
+}
+.label {
+  font-size:18px;
+  font-weight:500;
+  margin-top: 10px;
+  margin-bottom:10px;
+}
+input[type="text"] {
+  width:200px;
+  height: 40px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #0da1f0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.error {
+  color: red;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  width: 210px;
+  text-align: center;
+  border-radius: 6px;
+  margin-left: 60px;
+}
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(8, 130, 201) 69%, rgb(35, 14, 233) 89%) !important;
+  padding: 16px;
+  color: white;
+}
+.large-input {
+  font-size: 18px;
+  border-radius: 6px;
+  border: 1px solid gray;
+  padding: 12px;
+}
+
+.multiselect-dropdown[_ngcontent-jgo-c4] .dropdown-btn[_ngcontent-jgo-c4] {
+  display: inline-block;
+  border: 1px solid #adadad;
+  width: 100%;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-weight: 400;
+  line-height: 1.52857143;
+  text-align: left;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border-radius: 4px;
+  margin-left: 31px !important;
+}
+.dropdown-list[_ngcontent-eor-c4] {
+  position: absolute !important;
+  /* Other styles */
+}
+ .multiselect-dropdown .dropdown-list{
+  width: 250px !important;
+  position: relative !important;
+}
+.drop-up .ng-dropdown-panel {
+  position: relative !important;
+  bottom: 100%;
+  margin-bottom: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+.multiselect-dropdown .dropdown-btn {
+  display: inline-block;
+  border: 1px solid #adadad;
+  width: 100%;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: left;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border-radius: 4px;
+  position: relative !important;
+  z-index: 99;
+}

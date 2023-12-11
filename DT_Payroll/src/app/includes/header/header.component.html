@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <nav class="navbar navbar-expand-sm fixed-top ">
+  <nav class="navbar navbar-expand fixed-top">
     <div class="navbar-brand" style="width:300px">
       <a class="header item navColorRed" routerLink="/">
         <img src="./assets/images/logo.png" class="img-fluid" height="25px" alt="logo"
@@ -10,17 +10,24 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
-    <div class="row">
-      <div class="col-8">
+    <!-- <div class="row" style=" margin-right: 137px;">
+      <div class="col-md-8 me-0 ms-0">
         <ul class="navbar-nav">
           <li class="nav-item" *ngIf="user && !user.admin">
             <a class="nav-link" routerLink="/worklist" routerLinkActive="active">Worklist</a>
           </li>
-          <li class="nav-item" *ngIf="user && !user.admin">
-            <a class="nav-link" [routerLink]="[ '/process-company' ]" routerLinkActive="active"
-              style="cursor: pointer;">Process Company</a>
+          <li class="nav-item" *ngIf="user && user.admin">
+            <a class="nav-link"  [routerLink]="[ '/dashboard' ]"style="cursor: pointer;" routerLinkActive="active">Dashboard</a>
           </li>
           <li class="nav-item" *ngIf="user && user.admin">
+            <a class="nav-link" [routerLink]="[ '/process-company' ]" ro  uterLinkActive="active"
+              style="cursor: pointer;">Upload files</a>
+          </li>
+          <li class="nav-item" *ngIf="user && user.admin">
+            <a class="nav-link" (click)="uploadfile()"
+              style="cursor: pointer;">Process Company</a>
+          </li>
+          <li class="nav-item" *ngIf="user &&  user.admin">
             <a class="nav-link"  [routerLink]="[ '/allocation' ]"style="cursor: pointer;" routerLinkActive="active">Allocation</a>
           </li>
           <li class="nav-item" *ngIf="user && user.admin">
@@ -31,11 +38,57 @@
           </li>
         </ul>
       </div>
-      <div class="col-4" *ngIf="user">
-        <div ngbDropdown class="d-inline-block me-5">
+      <div class="col-md-4 ms-0" *ngIf="user" >
+        <div ngbDropdown class="d-inline-block user">
           <a class="btn text-white" id="dropdownBasic1" ngbDropdownToggle>
             <img src="./assets/images/user.png" alt="user avatar" class="mr-2 user" />
-            <span class="text-white" style="width:20px;">{{ user.username }}</span>
+            <span class="text-white" style="width:20px; margin-right: 20px;">{{ user.username }}</span>
+          </a>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem (click)="logout()">Log out</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="row">
+      <div class="col-md-11">
+        <ul class="navbar-nav">
+          <li class="nav-item" *ngIf="user && !user.admin">
+            <a class="nav-link" routerLink="/worklist" routerLinkActive="active">Worklist</a>
+          </li>
+          <li class="nav-item" *ngIf="user && user.admin">
+            <a class="nav-link" [routerLink]="[ '/dashboard' ]" style="cursor: pointer;"
+              routerLinkActive="active">Dashboard</a>
+          </li>
+          <li class="nav-item" *ngIf="user && user.admin">
+            <a class="nav-link" (click)="createCompany()" style="cursor: pointer;" routerLinkActive="active">Create
+              Company</a>
+          </li>
+          <li class="nav-item" *ngIf="user &&  user.admin">
+            <a class="nav-link" [routerLink]="[ '/allocation' ]" style="cursor: pointer;"
+              routerLinkActive="active">Allocation</a>
+          </li>
+          <li class="nav-item" *ngIf="user && user.admin">
+            <a class="nav-link" (click)="createuser()" style="cursor: pointer;">Create User</a>
+          </li>
+          <li class="nav-item" *ngIf="user && user.admin">
+            <a class="nav-link" [routerLink]="[ '/process-company' ]" routerLinkActive="active"
+              style="cursor: pointer;">Upload files</a>
+          </li>
+          <li class="nav-item" *ngIf="user && user.admin">
+            <a class="nav-link" (click)="uploadfile()" style="cursor: pointer;">Process Company</a>
+          </li>
+          <li class="nav-item" *ngIf="user && user.admin">
+            <a class="nav-link" [routerLink]="[ '/download' ]" style="cursor: pointer;"
+              routerLinkActive="active">Payroll Output </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-1 d-flex justify-content-end">
+        <div ngbDropdown class="d-inline-block user p-0">
+          <a class="btn text-white p-0" id="dropdownBasic1" ngbDropdownToggle>
+            <img src="./assets/images/user.png" alt="user avatar" class="mr-2 user" />
+            <span class="text-white" style="width:20px; font-size: 12px;">{{ user.username }}</span>
           </a>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <button ngbDropdownItem (click)="logout()">Log out</button>

@@ -137,10 +137,9 @@ label {
   position: relative !important; /* Set to relative */
 
 }
-
-.ng2-pdf-viewer-container[_ngcontent-xau-c0] {
+.ng2-pdf-viewer-container[_ngcontent-ndu-c0] {
   position: relative !important; /* Set to relative */
-  overflow-x: auto;
+  overflow:hidden !important;
   height: 100%;
   width: 100%;
   -webkit-overflow-scrolling: touch;

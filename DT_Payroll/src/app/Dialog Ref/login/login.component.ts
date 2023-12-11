@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('jwt', response.id.toString());
             if (response.admin) {
               console.log("User is logged in");
-              this.Router.navigate(['/allocation']);
+              this.Router.navigate(['/dashboard']);
             } else {
               this.Router.navigate(['/worklist']);
             }

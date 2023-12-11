@@ -3,20 +3,34 @@
     <div class="col-12 col-sm-9">
       <div class="process-box">
         <div class="col-sm-12" style="overflow: scroll; height: 70vh; position: relative !important;">
-         <div class="Content">
+            <ng-container *ngIf="fileExtension === 'pdf'; else imageContent">
+              <!-- <pdf-viewer [src]="src" [original-size]="false" [show-all]="true" [fit-to-page]="false" [zoom]="1"
+                [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+                [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+                style="width: 100%; height: 600px;"></pdf-viewer> -->
+                <div class="pdf-container">
+                  <pdf-viewer
+                    [src]="src"
+                    [rotation]="0"
+                    [original-size]="false"
+                    [show-all]="true"
+                    [fit-to-page]="false"
+                    [zoom]="1"
+                    [zoom-scale]="'page-width'"
+                    [stick-to-page]="false"
+                    [render-text]="true"
+                    [external-link-target]="'blank'"
+                    [autoresize]="true"
+                    [show-borders]="false"
+                    style="width: 100%; height: 600px;"
+                  ></pdf-viewer>
+                </div>
+             </ng-container>
 
-
-          <ng-container *ngIf="fileExtension === 'pdf'; else imageContent">
-            <pdf-viewer src="./assets/images/Profile.pdf"
-            style="display: block !important; margin:auto; position: relative !important;"
-            ></pdf-viewer>
-          </ng-container>
-          <ng-template #imageContent>
-    <img [src]="baseUrl+fileData.File_data.filepath"  #imageElement>
-          </ng-template>
-        </div>
-        </div>
-
+            <ng-template #imageContent>
+              <img [src]="baseUrl+fileData.File_data.filepath" #imageElement>
+            </ng-template>
+          </div>
         <div style="margin-left: 10px; margin-top:10px;">
           <input type="number" name id="total" [(ngModel)]="total">
           <button class="btn btn-outline-success ms-2 mx-2" (click)="copyTotal()">
@@ -95,7 +109,6 @@
               <label>Declared Amount</label>
               <input type="text" class="in-box mb-2" formControlName="declaredAmount">
             </div>
-
             <div *ngIf="this.fileData.File_data.filetype_id === 'Rent'" class="grid-column">
               <label>Date From</label>
               <input type="text" formControlName="dateFrom" class="in-box mb-2">
@@ -119,7 +132,8 @@
           </div>
           <div class="mb-1">
             <label for="filetype">File Type</label>
-            <select id="filetype" formControlName="filetypeActual" placeholder="File Type" class="in-box" (change)="fileType($event)" >
+            <select id="filetype" formControlName="filetypeActual" placeholder="File Type" class="in-box"
+              (change)="fileType($event)">
               <option *ngFor="let option of fileData.file_types; let i=index" [value]="option.filetype">
                 {{ option.filetype }}
               </option>
@@ -149,10 +163,10 @@
           <div class="mb-1">
             <label for="remark">Remarks</label>
             <select id="remark" formControlName="remarks" class="in-box">
-                <option *ngFor="let remark of this.remark" [value]="remark.remarks">
-                  {{ remark }}
-                </option>
-              </select>
+              <option *ngFor="let remark of this.remark" [value]="remark.remarks">
+                {{ remark }}
+              </option>
+            </select>
             <!-- <div style="color:red"
               *ngIf="extractForm.controls['remarks'].errors && extractForm.controls['remarks'].touched">
               field is required
@@ -206,4 +220,3 @@
     </div>
   </div>
 </div>
-

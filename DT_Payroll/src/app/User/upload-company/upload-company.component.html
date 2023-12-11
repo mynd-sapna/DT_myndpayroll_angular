@@ -1,34 +1,35 @@
 <div class="container my-5">
-  <div style="display: flex; justify-content: flex-end" class="mt-5">
+  <!-- <div style="display: flex; justify-content: flex-end" class="mt-5">
     <button mat-flat-button class="positives-btn mt-4" (click)="createCompany()">
       <mat-icon>add</mat-icon>
       <span class>Create New Company</span>
     </button>
-  </div>
+  </div> -->
   <form [formGroup]="createcompForm">
-    <div class="card mt-3" style="border-radius: 16px;">
-      <div class="card-body">
-        <div class="table">
-          <table class="table  bg-light my-5 p-4" style="border: none; margin-bottom:30px;">
-            <thead  class="table-header">
+    <div class="card mt-5" style="border-radius: 16px;">
+      <div class="card-body p-0">
+        <div class="table table-responsive">
+          <table class="table w-100 bg-light my-2 p-4" style="border: none; margin-bottom:30px;">
+            <thead class="table-header">
               <tr class="text-center">
-                <th class="table-header">S. No</th>
-                <th class="table-header">Filetype</th>
-                <th class="table-header">Company Name</th>
-                <th class="table-header">Sample</th>
-                <th class="table-header">Select File</th>
-                <th class="table-header">Upload</th>
+                <th class="table-header" style="width:50px;">S. No</th>
+                <th class="table-header" style="width:200px;">Filetype</th>
+                <th class="table-header" style="width:100px !important">Company Name</th>
+                <th class="table-header" style="width:300px;">Sample</th>
+                <th class="table-header" style="width:50px;">Select File</th>
+                <th class="table-header" style="width:50px;">Upload</th>
               </tr>
             </thead>
             <tbody class="text-center">
               <tr>
-                <td >1</td>
+                <td>1</td>
                 <td>
-                  <h6>Master File</h6>
+                  <h6>Investment Proof Master File</h6>
                 </td>
                 <td>
-                  <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
-                    [settings]="dropdownSettings" [data]="data?.Companies" class="singleselect">
+                  <ng-multiselect-dropdown formControlName="company1" [placeholder]="'Select Company'"
+                    [settings]="dropdownSettings" [data]="data?.Companies" (onSelect)="onItemSelect($event)"
+                    [(ngModel)]="selectedCompany" class="singleselect e-align-middle">
                   </ng-multiselect-dropdown>
                 </td>
                 <td>
@@ -56,12 +57,13 @@
               <tr>
                 <td>2</td>
                 <td>
-                  <h6>Rent File</h6>
+                  <h6> Investment Proof – Rent details File</h6>
                 </td>
                 <td>
-                  <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
-                    [settings]="dropdownSettings" [data]="data?.Companies" class="singleselect">
-                  </ng-multiselect-dropdown>
+                  <ng-multiselect-dropdown formControlName="company1" [placeholder]="'Select Company'"
+                  [settings]="dropdownSettings" [data]="data?.Companies" (onSelect)="onItemSelect($event)"
+                  [(ngModel)]="selectedCompany" class="singleselect e-align-middle">
+                </ng-multiselect-dropdown>
                 </td>
                 <td>
                   <label class="custom-file-upload" (click)="rentSamDownoad()">
@@ -88,11 +90,12 @@
               <tr>
                 <td>3</td>
                 <td>
-                  <h6>Chapter(6A) File</h6>
+                  <h6>Investment Proof – Chapter VIA File</h6>
                 </td>
                 <td>
-                  <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
-                    [settings]="dropdownSettings" [data]="data?.Companies" class="singleselect">
+                  <ng-multiselect-dropdown formControlName="company1" [placeholder]="'Select Company'"
+                    [settings]="dropdownSettings" [data]="data?.Companies" [(ngModel)]="selectedCompany"
+                    class="singleselect e-align-middle">
                   </ng-multiselect-dropdown>
                 </td>
                 <td>
@@ -120,11 +123,12 @@
               <tr>
                 <td>4</td>
                 <td>
-                  <h6>House File</h6>
+                  <h6> Investment Proof – House Property details File</h6>
                 </td>
                 <td>
-                  <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
-                    [settings]="dropdownSettings" [data]="data?.Companies" class="singleselect">
+                  <ng-multiselect-dropdown formControlName="company1" [placeholder]="'Select Company'"
+                    [settings]="dropdownSettings" [data]="data?.Companies" [(ngModel)]="selectedCompany"
+                    class="singleselect e-align-middle">
                   </ng-multiselect-dropdown>
                 </td>
                 <td>
@@ -154,19 +158,5 @@
         </div>
       </div>
     </div>
-    <div class="row float-end mt-2" style="height: 40px;">
-      <div class="col-md-6">
-        <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
-          [settings]="dropdownSettings" [data]="data?.Companies" class="singleselect" >
-        </ng-multiselect-dropdown>
-      </div>
-      <div class="col-md-6">
-        <button class="btn btn-primary px-5 py-2 ms-5" (click)="process_file()">
-          <ng-container *ngIf="!loadingi else loadingTemplate">Process</ng-container>
-        </button>
-      </div>
-    </div>
   </form>
 </div>
-
-

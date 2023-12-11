@@ -50,8 +50,6 @@ export class ApiServiceService {
     return this.http.post<IAgentQueueResponse>(`${this.baseURL}/get_agent_queue`, data);
   }
 
-
-
   getVerificationViewData(id: string): Observable<any> {
     const url = this.getVerificationViewUrl(id);
     return this.http.get(url);

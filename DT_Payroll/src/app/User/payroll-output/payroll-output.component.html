@@ -1,6 +1,6 @@
-<div class="container-fluid mt-5 p-4">
-  <h2>Payroll Output</h2>
-  <div class="process-box">
+<div class="container-fluid mt-5" style="margin-bottom: 50px !important;">
+  <h2 class="text-center">Payroll Output</h2>
+  <div class="process-box mx-5">
     <form (ngSubmit)="submitData()" [formGroup]="downloadForm">
       <div class="jumbotron">
         <p>
@@ -30,7 +30,7 @@
             <option value="RentDetails">RentDetails</option>
             <option value="HousePropertyDetails">HousePropertyDetails</option>
           </select>
-  
+
           <div
             *ngIf="downloadForm.get('type').invalid && (downloadForm.get('type').dirty || downloadForm.get('type').touched)"
             class="error mt-1">
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-default">
+        <button type="submit" class="btn positive-btn  btn-default">
           Submit
           <span>
             <div class="spinner-border" [hidden]="loaderHidden" id="loader" role="status"></div>
@@ -50,14 +50,14 @@
       </div>
     </form>
   </div>
-  <div class="process-box">
+  <div class="process-box mx-5">
     <div class="row">
       <div class="col-md-6">
         <div class="d-inline-block float-left mt-2">
           <h5>Pending Cases Download</h5>
         </div>
         <div class="d-inline-block my-2 float-end">
-          <button class="btn btn-primary btn-default" (click)="downloadPending('Download Pending')">
+          <button class="btn positive-btn  btn-default" (click)="downloadPending('Download Pending')">
             Download
             Pending
           </button>
@@ -65,14 +65,14 @@
       </div>
     </div>
   </div>
-  <div class="process-box">
+  <div class="process-box mx-5">
     <div class="row">
       <div class="col-md-6">
         <div class="d-inline-block float-left mt-2">
           <h5>Processed Cases Download</h5>
         </div>
         <div class="d-inline-block my-2 float-end">
-          <button class="btn btn-primary btn-default" (click)="downloadPending('Download Processed')">
+          <button class="btn positive-btn  btn-default" (click)="downloadPending('Download Processed')">
             Download
             Processed
           </button>
@@ -80,28 +80,28 @@
       </div>
     </div>
   </div>
-  <div class="process-box">
+  <div class="process-box mx-5">
     <div class="row">
       <div class="col-md-6">
         <div class="d-inline-block my-2 float-left mt-2">
           <h5>Red Green Stats</h5>
         </div>
         <div class="d-inline-block float-end">
-          <button class="btn btn-primary btn-default" (click)="downloadRedGreen()">
+          <button class="btn positive-btn  btn-default" (click)="downloadRedGreen()">
             Download Red Green Stats
           </button>
         </div>
       </div>
     </div>
   </div>
-  <div class="process-box">
+  <div class="process-box mx-5">
     <div class="row">
       <div class="col-md-6">
         <div class="d-inline-block my-2 float-left mt-2">
           <h5>Missing File Download</h5>
         </div>
         <div class="d-inline-block float-end">
-          <button class="btn btn-primary btn-default" (click)="downloadMissingFile()">
+          <button class="btn positive-btn  btn-default" (click)="downloadMissingFile()">
             Download Missing File
             Report
           </button>
@@ -109,14 +109,14 @@
       </div>
     </div>
   </div>
-  <div class="process-box mb-5">
+  <div class="process-box mb-5 mx-5" style="margin-bottom:30px;">
     <div class="row">
       <div class="col-md-6">
         <div class="d-inline-block float-left mt-2">
           <h5>Missing object Download</h5>
         </div>
         <div class="d-inline-block float-end">
-          <button class="btn btn-primary btn-default" (click)="downloadMissingObject()">
+          <button class="btn positive-btn  btn-default" (click)="downloadMissingObject()">
             Download Missing Objects
             Report
           </button>

@@ -1,28 +1,5 @@
-<div class="container-fluid mt-5 p-4">
-  <h2>Allocation</h2>
-  <div class="process-box">
-    <h5>Search</h5>
-    <form [formGroup]="companyForm">
-      <div class="row">
-        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-2">
-          <label class="my-2 text-center">Company</label><br>
-          <ng-multiselect-dropdown formControlName="company" [placeholder]="'Select Company'"
-            [settings]="dropdownSettings" [data]="dropdownList?.Companies" class="singleselect"
-            (onSelect)="onItemSelect($event)">
-          </ng-multiselect-dropdown>
-          <div
-            *ngIf="companyForm.controls['company'].invalid && (companyForm.controls['company'].dirty || companyForm.controls['company'].touched) "
-            class="error mt-1">
-            <div *ngIf="companyForm.controls['company'].errors">
-              company is required</div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-4">
-        </div>
-      </div>
-    </form>
-  </div>
-
+<div class="container-fluid mt-2 p-5">
+  <h2 class="text-center mb-3">Allocation</h2>
   <!--second box for allocation-->
   <div class="process-box">
     <h2>Assign Files</h2>
@@ -69,7 +46,6 @@
           <label class="my-2 text-center">Select Agent to assign from</label><br>
           <ng-multiselect-dropdown formControlName="agent" [placeholder]="'Select Agent to assign from'"
             [settings]="dropdownSettingsb" [data]="dropdownList.Agents" class="singleselect"></ng-multiselect-dropdown>
-
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
           <label class="my-2 text-center">Select Agent to assign to</label><br>
@@ -92,147 +68,12 @@
               count is required</div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4">
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 my-4">
           <button class="btn positives-btn">
             Allocate
-
           </button>
         </div>
       </div>
     </form>
-  </div>
-
-
-
-  <div class="process-box">
-    <h2>Company Summary</h2>
-    <div class="row">
-      <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 mb-4 ">
-        <table class="table table-striped table-bordered " style="display: inline-block;">
-          <thead>
-            <tr>
-              <td> File Type</td>
-              <td> Total files </td>
-              <td> Allocated Files </td>
-              <td> UnAllocated Files</td>
-              <td>Verified Files</td>
-            </tr>
-          </thead>
-          <tbody *ngIf="companySummary">
-            <ng-container *ngFor="let files of companySummary?.File_counts">
-              <ng-container *ngFor="let file  of files.Files">
-                <tr>
-                  <td style="width:200px;">{{ file.filetype }}</td>
-                  <td>
-                    {{
-                    (file?.allocated ? file?.allocated : 0) +
-                    (file?.unallocated ? file?.unallocated : 0) +
-                    (file?.verified ? file?.verified : 0)
-                    }}
-                  </td>
-                  <td>
-                    {{
-                    file?.allocated ? file?.allocated : 0
-                    }}
-                  </td>
-                  <td>
-                    {{
-                    file?.unallocated ? file?.unallocated : 0
-                    }}
-                  </td>
-                  <td>
-                    {{
-                    file?.verified ? file?.verified : 0
-                    }}
-                  </td>
-                </tr>
-              </ng-container>
-            </ng-container>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th>Total</th>
-              <th>{{ totalAllo + totalUnallo + totalVerified }}</th>
-              <th>{{ totalAllo }}</th>
-              <th>{{ totalUnallo }}</th>
-              <th>{{ totalVerified }}</th>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-      <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 mb-4 ">
-        <table class="table table-striped table-bordered ms-3" style="display: inline-block;">
-          <thead>
-            <tr>
-              <td>Section</td>
-              <td> Total Files </td>
-              <td> Allocated Files </td>
-              <td> UnAllocated Files</td>
-              <td>Verified Files</td>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let queueItem of companySummary?.File_counts_section">
-              <tr>
-                <td style="width:200px;">{{ queueItem?.filetype__section }}</td>
-                <td>
-                  {{
-                  (queueItem?.allocated ? queueItem?.allocated : 0) +
-                  (queueItem?.unallocated ? queueItem?.unallocated : 0) +
-                  (queueItem?.verified ? queueItem?.verified : 0)
-                  }}
-                </td>
-                <td>
-                  {{ queueItem?.allocated ? queueItem?.allocated : 0 }}
-                </td>
-                <td>
-                  {{ queueItem?.unallocated ? queueItem?.unallocated : 0 }}
-                </td>
-                <td>
-                  {{ queueItem?.verified ? queueItem?.verified : 0 }}
-                </td>
-              </tr>
-            </ng-container>
-          <tfoot>
-            <tr>
-              <td>Total</td>
-              <th>{{ totalAllo + totalUnallo + totalVerified }}</th>
-              <th>{{ totalAllo }}</th>
-              <th>{{ totalUnallo }}</th>
-              <th>{{ totalVerified }}</th>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-      <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 mb-4">
-        <table class="table table-striped table-bordered ms-3" style="display: inline-block;">
-          <thead>
-            <tr>
-              <td>Agent</td>
-              <td> Allocated Files </td>
-              <td>Pending Files</td>
-              <td>Verified Files</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let agents of agentSummary">
-              <td>{{agents.agent}}</td>
-              <td>
-                {{(agents.allocated ? agents.allocated : 0) + (agents.verified ? agents.verified : 0)}}</td>
-              <td> {{ (agents.allocated ? agents.allocated : 0) + (agents.userpending ? agents.userpending : 0) }}</td>
-              <td>{{agents.verified}}</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td>Total</td>
-              <th>{{totalVerified + userpending}}</th>
-              <td>{{userpending}}</td>
-              <th>{{ totalVerified }}</th>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-    </div>
   </div>
 </div>

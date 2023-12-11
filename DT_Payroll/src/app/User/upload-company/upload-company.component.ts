@@ -17,7 +17,11 @@ import { concatMap, switchMap } from 'rxjs/operators';
   styleUrls: ['./upload-company.component.css']
 })
 export class UploadCompanyComponent {
-
+  tableData: any[] = [
+    { selected: false, /* other properties */ },
+    { selected: false, /* other properties */ },
+    // Other rows
+  ];
 
   filetypes = [
     { id: 1, text: "Master" }, { id: 2, text: "House " }, { id: 3, text: " Rent" },
@@ -38,7 +42,7 @@ export class UploadCompanyComponent {
   dropdownSettingsb: IDropdownSettings | any;
   selectedFile: File | any; values: any;
   progress: number = 0;
-  selectedCompany: any;
+  selectedCompany: string;
   selectedFileColor: string = 'green';
   uploadItems: { isUploading: boolean }[] = [
     { isUploading: false },
@@ -47,15 +51,28 @@ export class UploadCompanyComponent {
     // Add more items as needed
   ];
   isLoading: boolean;
-
+  loadingTemplate: any = false;
   constructor(public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private route: Router,
     private apiService: ApiServiceService,
     private toast: ToastrService) {
     this.createcompForm = this.formBuilder.group({
-      company: ['', Validators.required],
+      company1: ['', Validators.required],
+      company2: ['', Validators.required],
+      company3: ['', Validators.required],
+      company4: ['', Validators.required],
       fileType: ['', Validators.required]
+    });
+    this.createcompForm.get('company')?.valueChanges.subscribe((selectedCompany) => {
+      if (selectedCompany.length > 0) {
+        const companyName = selectedCompany[0].name;
+        // Set the selected company for all sections
+        this.createcompForm.get('company1')?.setValue([{ name: companyName }], { emitEvent: false });
+        this.createcompForm.get('company2')?.setValue([{ name: companyName }], { emitEvent: false });
+        this.createcompForm.get('company3')?.setValue([{ name: companyName }], { emitEvent: false });
+        this.createcompForm.get('company4')?.setValue([{ name: companyName }], { emitEvent: false });
+      }
     });
   }
 
@@ -65,12 +82,14 @@ export class UploadCompanyComponent {
       singleSelection: true,
       textField: "name",
       allowSearchFilter: true,
+      closeDropDownOnSelection:true,
 
     };
     this.dropdownSettingsb = {
       singleSelection: true,
       textField: "text",
       allowSearchFilter: true,
+      closeDropDownOnSelection:true,
     };
   }
 
@@ -80,24 +99,24 @@ export class UploadCompanyComponent {
     });
   }
 
-  createCompany() {
-    const dialogRef = this.dialog.open(CreateCompanyComponent, {
-      data: {},
-    });
-  }
+  // createCompany() {
+  //   const dialogRef = this.dialog.open(CreateCompanyComponent, {
+  //     data: {},
+  //   });
+  // }
 
   onFileChange(event: any) {
     this.selectedFile = event.target.files[0];
     this.selectedFileColor = 'green';
   }
 
+
   masterfileUpload() {
-    this.loading = true;
     if (!this.selectedFile) {
       this.toast.warning('Please select a Master file before uploading.');
       return;
     }
-    const selectedCompany = this.createcompForm.get('company').value;
+    const selectedCompany = this.createcompForm.get('company1').value;
     if (!selectedCompany) {
       this.toast.warning('Please select a company before uploading file.');
       return;
@@ -123,50 +142,6 @@ export class UploadCompanyComponent {
     ).add(() => {
       this.loading = false;
     });
-
-  }
-  process_file(): void {
-    const selectedCompany = this.createcompForm.get('company')?.value[0].name;
-    console.warn("companyname", selectedCompany)
-    if (selectedCompany.length > 0) {
-      const form = new FormData;
-      form.append('company_name', selectedCompany);
-      var request = { company_name: selectedCompany }
-
-      this.apiService.ocrfiles1(form)
-        .pipe(
-          tap((response) => {
-            console.warn("ocr done", response)
-            // this.toast.success('OCR done successfully', 'Success', { timeOut: 1000 });
-          }),
-          catchError((error) => {
-            this.isLoading = false;
-            console.log(error);
-            return throwError(error);
-          })
-        )
-        .subscribe(
-          () => {
-            this.apiService.runMeth(form)
-              .pipe(
-                catchError((error) => {
-                  this.isLoading = false;
-                  console.log(error);
-                  return throwError(error);
-                })
-              )
-              .subscribe((response) => {
-                console.warn('meth run', response)
-                this.toast.success('Processing completed successfully', 'Success', { timeOut: 5000 });
-                this.isLoading = false;
-              });
-          },
-          (error) => {
-            this.isLoading = false;
-            console.log(error);
-          }
-        );
-    }
   }
 
   rentfileUpload() {
@@ -175,13 +150,13 @@ export class UploadCompanyComponent {
       this.toast.warning('Please select a Rent file before uploading.');
       return;
     }
-    const selectedCompany = this.createcompForm.get('company').value;
+    const selectedCompany = this.createcompForm.get('company1').value;
     if (!selectedCompany) {
       this.toast.warning('Please select a company before uploading file.');
       return;
     }
     const companyData = new FormData();
-    companyData.append('company_name', this.createcompForm.get('company').value[0].name);
+    companyData.append('company_name', selectedCompany[0].name);
     companyData.append('file', this.selectedFile);
     this.apiService.rentfile(companyData).subscribe(
       (response: any) => {
@@ -209,14 +184,13 @@ export class UploadCompanyComponent {
       this.toast.warning('Please select a Chapter file before uploading.');
       return;
     }
-    const selectedCompany = this.createcompForm.get('company').value;
+    const selectedCompany = this.createcompForm.get('company1').value;
     if (!selectedCompany) {
       this.toast.warning('Please select a company before uploading file.');
       return;
     }
     const companyData = new FormData();
-    console.log(this.createcompForm.get('company').value);
-    companyData.append('company_name', this.createcompForm.get('company').value[0].name);
+    companyData.append('company_name', selectedCompany[0].name);
     companyData.append('file', this.selectedFile);
     this.apiService.chapterfile(companyData).subscribe(
       (response: any) => {
@@ -244,15 +218,13 @@ export class UploadCompanyComponent {
       this.toast.warning('Please select a Chapter file before uploading.');
       return;
     }
-    const selectedCompany = this.createcompForm.get('company').value;
-    debugger;
-    console.log(this.createcompForm.get('company'));
+    const selectedCompany = this.createcompForm.get('company1').value;
     if (!selectedCompany) {
       this.toast.warning('Please select a company before uploading file.');
       return;
     }
     const companyData = new FormData();
-    companyData.append('company_name', this.createcompForm.get('company').value[0].name);
+    companyData.append('company_name', selectedCompany[0].name);
     companyData.append('file', this.selectedFile);
     this.apiService.housefile(companyData).subscribe(
       (response: any) => {
@@ -359,4 +331,17 @@ export class UploadCompanyComponent {
     });
   }
 
+  selectAllRows(event: any) {
+    const isChecked = event.target.checked;
+    // Set the selected state for all rows
+    this.tableData.forEach((row) => {
+      row.selected = isChecked;
+    });
+  }
+
+onItemSelect(company: any): void {
+    if (company && company.length > 0) {
+      this.selectedCompany = company[0].name;
+    }
+  }
 }

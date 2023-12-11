@@ -109,9 +109,13 @@ export class WorklistComponent {
       id: id
     }
   };
-
-  this.Router.navigate(['/manage'], navigationExtras);
+  let route = '/manage/' + id ;
+  this.Router.navigate([route]);
   // console.warn('navigationExtras', navigationExtras);
 }
 
 }
+// let route = '/manage' + id ;
+//   this.Router.navigate([route], navigationExtras);
+//   // console.warn('navigationExtras', navigationExtras);
+// }

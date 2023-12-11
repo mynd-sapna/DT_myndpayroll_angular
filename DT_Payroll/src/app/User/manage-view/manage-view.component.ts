@@ -20,6 +20,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./manage-view.component.css'],
 })
 export class ManageViewComponent implements OnInit {
+  firstFile: any = '';
+  //  src = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
   @ViewChild('imageElement', { static: true }) imageElement: ElementRef<HTMLImageElement> | any;
   imageUrl: string; // Define the image URL
   panelform: FormGroup | any;
@@ -58,9 +60,14 @@ export class ManageViewComponent implements OnInit {
   fileContent: Blob | undefined;
   remark: any;
   baseUrl: string = 'https://idppayroll.myndsolution.com'
+  baseUrls: string = 'https://idppayroll.myndsolution.com/var/DT_mynd_payroll/mynd_payroll/api/static/'
   imageHistory: any;
   filepath: any;
   isPdf: boolean;
+  viewFile: boolean = false;
+  src="https://idppayroll.myndsolution.com/var/DT_mynd_payroll/mynd_payroll/api/static/images/SPG/SPG-510632684-282911-INV_LIP-007001-534913-PolicyStatus_919447804_.pdf"
+  pdfSrc = 'https://idppayroll.myndsolution.com/var/DT_mynd_payroll/mynd_payroll/api/static/images/SPG/SPG-510632684-282911-INV_LIP-007001-534913-PolicyStatus_919447804_.pdf';
+  // src: string;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router, private route: ActivatedRoute, private AuthServiceService: AuthServiceService, private toast: ToastrService,
@@ -75,7 +82,7 @@ export class ManageViewComponent implements OnInit {
     });
     //extraction form
     this.extractForm = this.formBuilder.group({
-      amountApproved: ['', Validators.required],
+      amountApproved:  [{ value: '', disabled: true }],
       filetypeActual: ['', Validators.required],
       fromDateActual: [''],
       toDateActual: [''],
@@ -85,28 +92,19 @@ export class ManageViewComponent implements OnInit {
     });
     //other form data
     this.otherform = this.formBuilder.group({
-      Ref_No: [''],
-      Metro: [''],
-      UpdatedOn: [''],
-      UpdatedBy: [''],
-      CreatedOn: [''],
-      CreatedBy: [''],
-      RowVersion: [''],
-      Rent_Address: [''],
-      LL_Name: [''],
-      LL_Address: ['']
+      Ref_No: [{ value: '', disabled: true }],
+      Metro: [{ value: '', disabled: true }],
+      UpdatedOn: [{ value: '', disabled: true }],
+      UpdatedBy: [{ value: '', disabled: true }],
+      CreatedOn: [{ value: '', disabled: true }],
+      CreatedBy: [{ value: '', disabled: true }],
+      RowVersion: [{ value: '', disabled: true }],
+      Rent_Address: [{ value: '', disabled: true }],
+      LL_Name:[{ value: '', disabled: true }],
+      LL_Address: [{ value: '', disabled: true }],
     });
     this.loading = false;
-  }
-
-  get fileExtension(): string {
-    // Extract the file extension from the file path
-    const filePath = this.fileData?.File_data?.filepath;
-    if (filePath) {
-      const extension = filePath.split('.').pop();
-      return extension ? extension.toLowerCase() : '';
-    }
-    return '';
+    this.fileExtension;
   }
 
   ngOnInit(): void {
@@ -116,40 +114,43 @@ export class ManageViewComponent implements OnInit {
       });
       console.log(formData, 'wdd');
     });
-    this.extractForm.valueChanges.subscribe((formData) => {
-      this.panelform.patchValue({
-        remarks: this.fileData.File_data.remarks,
-      });
-      console.log(formData, 'wdd');
-    });
-    this.localStorageId = JSON.parse(localStorage.getItem('user') || '{}');
-    this.localStorageId = this.localStorageId.id;
-    console.log('localStorageId:', this.localStorageId);
-    this.route.queryParams.subscribe(params => {
-      this.queryParamId = params['id'];
+    this.route.paramMap.subscribe((params: any) => {
+      this.queryParamId = params?.params['id'];
       console.log('queryParamId:', this.queryParamId);
       this.loadExtractedFile(this.queryParamId);
       const fileId = params['fileId'];
     });
+    this.localStorageId = JSON.parse(localStorage.getItem('user') || '{}');
+    this.localStorageId = this.localStorageId.id;
+    console.log('localStorageId:', this.localStorageId);
+  }
+  handleLoadError(event: any) {
+    console.error('Error loading PDF:', event);
+  }
+  // firstFile: any;
+  get fileExtension(): string {
+    this.firstFile = '';
+    const filePath = this.fileData?.File_data?.filepath;
+    if (filePath) {
+      const files = filePath.split("*,*");
+      if (files.length > -1) {
+        this.firstFile = files[0];
+        this.src = `https://idppayroll.myndsolution.com/var/DT_mynd_payroll/mynd_payroll/api/static/${this.firstFile}`
+        const extension = this.firstFile.split('.').pop();
+        if (extension) {
+          console.warn('Full File Path:', this.src);
+          return extension.toLowerCase();
+        }
+        this.viewFile = true;
+      }
+      // this.src + this.firstFile;
 
+      console.warn("src",this.src ,this.viewFile);
 
-    this.extension = '';
-    this.files = [];
-    this.numOfFiles = 0;
-    console.log(this.queryParamId, 'this.queryParamId');
-    this.id = JSON.parse(localStorage.getItem('user') || '{}');
-    console.log(this.id, 'this.id');
-    this.setRemarksFromIndex(0);
-    console.log();
-    if (this.fileData && this.fileData.filepath) {
-      this.isPdf = this.fileData.File_data.filepath.toLowerCase().endsWith('.pdf');
     }
-
+    return '';
   }
 
-  getImageUrl(file: string): string {
-    return `${'https://idppayroll.myndsolution.com'}/static/${file}`;
-  }
 
   uploadFile(file: any) {
     this.ApiServiceService.getQueue(this.id.id).subscribe(
@@ -251,6 +252,7 @@ export class ManageViewComponent implements OnInit {
         }
       },
       (error) => {
+
         console.log(error);
       }
     );
@@ -320,12 +322,12 @@ export class ManageViewComponent implements OnInit {
             this.toast.success('Verification successful. End of Queue reached');
             this.router.navigate(['/worklist']); // Navigate to '/worklist' route
           } else if (response && response.Next) {
-            // Next file available in the queue
             this.toast.success('Verification successful. Loading next file');
-            this.router.navigate(['/manage'], { queryParams: { id: response.Next } });
-            setTimeout(() => {
-              window.location.reload();
-            }, 500);
+            this.router.navigate(['manage', response.Next]).then(() => {
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
+            });
           }
         },
         (error: any) => {
@@ -401,9 +403,6 @@ export class ManageViewComponent implements OnInit {
       window.open(this.filepath, '_blank');
     }
   }
-
-
-
   validateForm() {
     this.invalid = this.extractForm.invalid;
   }

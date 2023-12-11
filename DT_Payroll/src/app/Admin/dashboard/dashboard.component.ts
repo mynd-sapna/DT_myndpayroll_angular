@@ -1,5 +1,4 @@
 import { AuthServiceService } from './../../Services/auth-service.service';
-import { NgSelectModule } from '@ng-select/ng-select';
 import {
   IGeneralData,
   values,
@@ -31,14 +30,12 @@ import { HttpClient } from "@angular/common/http";
 import { ListItem } from 'ng-multiselect-dropdown/multiselect.model';
 import { observable, runInAction } from 'mobx';
 import { ToastrService } from 'ngx-toastr';
-
 @Component({
-  selector: "app-allocation",
-  templateUrl: "./allocation.component.html",
-  styleUrls: ["./allocation.component.css"],
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-
-export class AllocationComponent implements OnInit {
+export class DashboardComponent {
   section = [
     {
       key: "HomeLoan&Others",
@@ -99,7 +96,6 @@ export class AllocationComponent implements OnInit {
   total: any;
   allocateForm: FormGroup<any> | any;
   companyForm: FormGroup<any> | any;
-name: readonly any[];
   constructor(
     private formBuilder: FormBuilder,
     private AuthServiceService: AuthServiceService,
@@ -130,19 +126,7 @@ name: readonly any[];
       allowSearchFilter: true,
       closeDropDownOnSelection:true,
     };
-    this.dropdownSettingsa = {
-      textField: 'filetype',
-      singleSelection: true,
-      allowSearchFilter: true,
-      closeDropDownOnSelection:true,
-    };
 
-    this.dropdownSettingsb = {
-      singleSelection: true,
-      textField: 'username',
-      allowSearchFilter: true,
-      closeDropDownOnSelection:true,
-    };
 
     this.id = this.locals.id;
     this.getCurrentUsers(this.id);
@@ -254,7 +238,6 @@ name: readonly any[];
     );
   }
 
-
   iscompanyFormValid(): boolean {
     return this.companyForm.valid;
   }
@@ -277,22 +260,5 @@ name: readonly any[];
         }
       }
     }
-  }
-  onDropdownFocus(event: any) {
-    // Handle focus event if needed
-  }
-
-  onDropdownBlur(event: any) {
-    // Handle blur event if needed
-  }
-  filteredCompanies: any[];
-  searchTerm: string = '';
-
-
-  // Update filteredCompanies based on the searchTerm
-  updateFilteredCompanies() {
-    this.filteredCompanies = this.dropdownList.Companies.filter(company =>
-      company.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
   }
 }

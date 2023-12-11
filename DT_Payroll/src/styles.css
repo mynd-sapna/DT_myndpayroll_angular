@@ -12,16 +12,16 @@ body {
 }
 
 
-html {
+/* html {
   line-height: 1;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   font-size: 14px;
-}
-html {
+} */
+/* html {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
+} */
 
 .mat-dialog-actions {
   justify-content: flex-end;
@@ -29,29 +29,18 @@ html {
 
 .mat-dialog-container {
   max-height: 400px;
-  /* Adjust the height as needed */
   max-width: 600px;
-  /* Adjust the width as needed */
 }
 
 .custom-dropdown .dropdown-list {
   max-height: 300px;
-  /* Adjust the height as needed */
 }
 
 .custom-dropdown .dropdown-btn {
   width: 300px;
-  /* Adjust the width as needed */
 }
 
-.dialog-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #0da1f0;
-  padding: 16px;
-  color: white;
-}
+
 
 .cancel-button {
   color: white;
@@ -113,7 +102,38 @@ html {
 .singleselect .multiselect-dropdown {
   width: 250px !important;
 }
-/*
-a.nav-link.active {
-  color: red;
-} */
+
+.dropdown-list {
+  position: fixed !important;
+  padding-top: 6px;
+  width: 100%;
+  position: absolute !important;
+  z-index: 10 !important;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fff;
+  margin-top: 10px;
+  box-shadow: 0 1px 5px #959595;
+  max-height: 300px;
+  max-width: 300px;
+  overflow-y: auto;
+}
+
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown.open {
+
+}
+
+
+.custom-dropdown input[type="text"]:focus {
+  + .dropdown-list {
+    display: block;
+  }
+}
+
+.custom-dropdown .dropdown-list {
+  display: none;
+}

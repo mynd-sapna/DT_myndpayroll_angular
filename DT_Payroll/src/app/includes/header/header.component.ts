@@ -1,3 +1,4 @@
+import { ProcessCompanyComponent } from './../../Dialog Ref/process-company/process-company.component';
 import { RootStoreService } from './../../Services/rootstore.service';
 import { AuthServiceService } from './../../Services/auth-service.service';
 import { ApiServiceService } from './../../Services/api-service.service';
@@ -11,7 +12,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { finalize } from 'rxjs';
 import { TokenType } from '@angular/compiler';
 import { CreateuserComponent } from 'src/app/Dialog Ref/createuser/createuser.component';
-import { PayrollOutputCredComponent } from 'src/app/Dialog Ref/payroll-output-cred/payroll-output-cred.component';
+import { CreateCompanyComponent } from 'src/app/Dialog Ref/create-company/create-company.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -24,14 +25,12 @@ export class HeaderComponent implements OnInit {
   loggedInUser: any;
   isLoggedIn: boolean | any;
   appLoaded$: Observable<boolean> | any;
- 
-
   constructor(
     public dialog: MatDialog,
     private route: Router,
     private apiservice: ApiServiceService,
     private http: HttpClient,
-    private AuthServiceService:AuthServiceService
+    private AuthServiceService: AuthServiceService
   ) { }
 
   ngOnInit(): void {
@@ -48,25 +47,27 @@ export class HeaderComponent implements OnInit {
     });
   }
 
- createuser() {
+  createuser() {
     const dialogRef = this.dialog.open(CreateuserComponent, {
       data: {},
     });
     dialogRef.afterClosed().subscribe((result) => {
- 
-  });
- }
+    });
+  }
 
- outputCred() {
-  const dialogRef = this.dialog.open(PayrollOutputCredComponent, {
-    data: {},
-  });
-  dialogRef.afterClosed().subscribe((result) => {
- 
+  createCompany() {
+    const dialogRef = this.dialog.open(CreateCompanyComponent, {
+      data: {},
+    });
+  }
 
-  });
-}
-
+  uploadfile() {
+    const dialogRef = this.dialog.open(ProcessCompanyComponent, {
+      data: {},
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+    });
+  }
 
   logout() {
     if (!this.isLoggedIn) {

@@ -1,17 +1,9 @@
 import { ApiServiceService } from './../../Services/api-service.service';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Company } from 'src/app/Models/generaldata';
-import { CUser, user } from '../../Models/generaldata';
-import { AuthServiceService } from '../../Services/auth-service.service';
-import { RootStoreService } from '../../Services/rootstore.service';
-import { ExtractionStoreService } from 'src/app/Services/extraction-store.service';
-import { Router } from '@angular/router';
-import { IUserFormValues, IUser } from '../../Models/generaldata';
-import { HttpClient } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-create-company',
@@ -21,16 +13,16 @@ import { HttpClient } from '@angular/common/http';
 export class CreateCompanyComponent {
   @Output() companyCreated = new EventEmitter<Company>();
   createcompForm: FormGroup | any;
-  isLoading: boolean|any;
+  isLoading: boolean | any;
   submitError: string | null = null;
+
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiServiceService,
-    private toast:ToastrService,      private http: HttpClient,
+    private toast: ToastrService,
     private dialogRef: MatDialogRef<CreateCompanyComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any
-  ) {
-  }
+  ) {}
 
   get companyNameControl() {
     return this.createcompForm.get('companyName');
@@ -38,34 +30,48 @@ export class CreateCompanyComponent {
 
   ngOnInit(): void {
     this.createcompForm = this.formBuilder.group({
-      companyName: ['', Validators.required],
+      companyName: ['', [Validators.required, this.uppercaseValidator]],
     });
   }
 
-onSave(): void {
-  if (this.createcompForm.invalid) {
-    this.submitError = 'Please fill in all the required fields.';
-    return;
+  uppercaseValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const value = control.value as string;
+    // Check if the value is not empty and contains only uppercase letters
+    if (value && !/^[A-Z]+$/.test(value)) {
+      return { 'uppercaseRequired': true };
+    }
+    return null;
   }
 
-  const companyData = {
-    name: this.createcompForm.get('companyName')?.value,
-  };
+  onInputChange() {
+    const currentValue = this.companyNameControl.value as string;
+    // Convert to uppercase and update the form control value
+    this.companyNameControl.setValue(currentValue.toUpperCase(), { emitEvent: false });
+  }
 
-  this.apiService.createCompany(companyData).subscribe(
-    (response: any) => {
-      this.toast.success(JSON.parse(response).message);
+  onSave(): void {
+    if (this.createcompForm.valid) {
+      // Convert the companyName to uppercase before submitting
+      const companyName = this.companyNameControl.value.toUpperCase();
 
-      // Reload the page after a short delay (e.g., 1 second)
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    },
-    (error: any) => {
-      this.toast.error('A company with that name already exists. Please try again later.');
-      this.dialogRef.close();
+      const companyData = {
+        name: companyName,
+      };
+
+      this.apiService.createCompany(companyData).subscribe(
+        (response: any) => {
+          this.toast.success(JSON.parse(response).message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        },
+        (error: any) => {
+          this.toast.error('A company with that is name already exists. Please try again later.');
+          this.dialogRef.close();
+        }
+      );
+    } else {
+      this.toast.error('Form is not valid. Please check the fields.');
     }
-  );
-}
-
+  }
 }

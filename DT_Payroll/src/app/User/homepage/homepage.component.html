@@ -1,6 +1,6 @@
 <div class="container-fluid bg-blue text-white" [ngClass]="{ 'inverted': isLoggedIn }">
   <div class="row align-items: center; display: flex; justify-content: center;">
-    <div class="col-12 text-center mb-5" style="margin-top:9vh;">
+    <div class="col-12 text-center mb-5" style="margin-top:5vh;">
       <!-- <img src="./assets/images/logo.png" class="logo-img" height="20px" alt="logo"> -->
       <span class="payrol">
         <span class="red">M</span>
@@ -18,7 +18,7 @@
           Got to your queue
         </button>
         <ng-template #adminButton>
-          <button *ngIf="user.admin" routerLink="/allocation" class="btn btn-lg btn-white mb-4 px-4 py-3">Got to your
+          <button *ngIf="user.admin" routerLink="/dashboard" class="btn btn-lg btn-white mb-4 px-4 py-3">Got to your
             allocation page</button>
         </ng-template>
       </ng-container>
@@ -28,7 +28,7 @@
         <div class="d-flex justify-content-center">
           <app-login class="card-container"></app-login>
         </div>
-        <div style="margin-top: 11vh;">
+        <div style="margin-top: 8vh;">
           <a href="https://www.myndsolution.com/" target="_blank">
             <img src="/assets/images/made_by_mynd.png" alt="Made by MYND" />
           </a>

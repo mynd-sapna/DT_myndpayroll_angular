@@ -1,6 +1,7 @@
 
 import { AdminGuard } from './../auth/admin.guard';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+// import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 import {
   HTTP_INTERCEPTORS,
   HttpClient,
@@ -40,15 +41,16 @@ import { MaterialModule } from './Material/material.module';
 import { AuthInterceptor } from 'src/auth/auth.interceptor';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ImportCompanyComponent } from './Dialog Ref/upload-Files/import-company.component';
-import { ExportCompanyComponent } from './Dialog Ref/export-company/export-company.component';
 import { CreateCompanyComponent } from './Dialog Ref/create-company/create-company.component';
 import { CreateuserComponent } from './Dialog Ref/createuser/createuser.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { PayrollOutputCredComponent } from './Dialog Ref/payroll-output-cred/payroll-output-cred.component';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { EjsUploaderComponent } from './ejs-uploader/ejs-uploader.component';
 import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 import { FileViewerComponent } from './file-viewer/file-viewer.component';
+import { DashboardComponent } from './Admin/dashboard/dashboard.component';
+import { ProcessCompanyComponent } from './Dialog Ref/process-company/process-company.component';
+// import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,18 +67,17 @@ import { FileViewerComponent } from './file-viewer/file-viewer.component';
     ManageViewComponent,
     VerificationDirective,
     ImportCompanyComponent,
-    ExportCompanyComponent,
     CreateCompanyComponent,
-    PayrollOutputCredComponent,
     EjsUploaderComponent,
     FileViewerComponent,
+    DashboardComponent,
+    ProcessCompanyComponent,
   ],
   imports: [
-    PdfViewerModule,
+  //  NgSelectModule,
+    // PdfViewerModule,
     BrowserModule,
-    UploaderModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     CommonModule,
