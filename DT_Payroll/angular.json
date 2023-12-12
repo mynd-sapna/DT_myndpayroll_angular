@@ -66,16 +66,16 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "client-app:build",
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "proxy.conf.json",
+            "buildTarget": "client-app:build"
 
           },
           "configurations": {
             "production": {
-              "browserTarget": "client-app:build:production"
+              "buildTarget": "client-app:build:production"
             },
             "development": {
-              "browserTarget": "client-app:build:development"
+              "buildTarget": "client-app:build:development"
 
             }
           },
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "client-app:build"
+            "buildTarget": "client-app:build"
           }
         },
         "test": {
