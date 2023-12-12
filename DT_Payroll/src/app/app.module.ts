@@ -23,15 +23,14 @@ import {
   FormsModule,
   FormControl,
   FormBuilder,
-  Validators,
+  Validators,ReactiveFormsModule
 } from '@angular/forms';
 import { enableProdMode } from '@angular/core';
 import { UploadCompanyComponent } from './User/upload-company/upload-company.component';
 import { WorklistComponent } from './User/worklist/worklist.component';
 import { PayrollOutputComponent } from './User/payroll-output/payroll-output.component';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { ExtractionStoreService } from './Services/extraction-store.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ExtractionStoreService } from './Services/extraction-store.service'; 
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ManageViewComponent } from './User/manage-view/manage-view.component';
