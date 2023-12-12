@@ -122,14 +122,14 @@
     ora "5.4.1"
     rxjs "7.8.1"
 
-"@angular/animations@^17.0.6", "@angular/animations@^6.1.10", "@angular/animations@>=15.0.0", "@angular/animations@>=7.0.0", "@angular/animations@17.0.6":
+"@angular/animations@^17.0.6", "@angular/animations@^6.1.10", "@angular/animations@^8.0.0 || ^9.0.0-0", "@angular/animations@>=15.0.0", "@angular/animations@17.0.6":
   version "17.0.6"
   resolved "https://registry.npmjs.org/@angular/animations/-/animations-17.0.6.tgz"
   integrity sha512-fic61LjLHry79c5H9UGM8Ff311MJnf9an7EukLj2aLJ3J0uadL/H9de7dDp8PaIT10DX9g+aRTIKOmF3PmmXIQ==
   dependencies:
     tslib "^2.3.0"
 
-"@angular/cdk@^15.2.8", "@angular/cdk@^7.3.3", "@angular/cdk@7.3.7":
+"@angular/cdk@^15.2.8", "@angular/cdk@^7.3.3", "@angular/cdk@8.2.3":
   version "15.2.8"
   resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-15.2.8.tgz"
   integrity sha512-jiCoxfBFMH29IZIiPmVUzIWetfUNpMIvC20xYVF8RMM819vPogoObzwK4DN/sXcp/6oVbBzZFaYdijhhIt9soQ==
@@ -162,7 +162,7 @@
     symbol-observable "4.0.0"
     yargs "17.7.2"
 
-"@angular/common@^15.0.0 || ^16.0.0", "@angular/common@^17.0.0", "@angular/common@^17.0.0-rc.0", "@angular/common@^17.0.6", "@angular/common@^6.0.0-rc.0 || ^6.0.0", "@angular/common@>=12.0.0 <17.0.0", "@angular/common@>=15.0.0", "@angular/common@>=16.0.0-0", "@angular/common@>=2.0.0", "@angular/common@>=7.0.0", "@angular/common@17.0.6":
+"@angular/common@^15.0.0 || ^16.0.0", "@angular/common@^17.0.0", "@angular/common@^17.0.0-rc.0", "@angular/common@^17.0.6", "@angular/common@^6.0.0-rc.0 || ^6.0.0", "@angular/common@^8.0.0 || ^9.0.0-0", "@angular/common@>=12.0.0 <17.0.0", "@angular/common@>=15.0.0", "@angular/common@>=16.0.0-0", "@angular/common@>=2.0.0", "@angular/common@17.0.6":
   version "17.0.6"
   resolved "https://registry.npmjs.org/@angular/common/-/common-17.0.6.tgz"
   integrity sha512-FZtf8ol8W2V21ZDgFtcxmJ6JJKUO97QZ+wr/bosyYEryWMmn6VGrbOARhfW7BlrEgn14NdFkLb72KKtqoqRjrg==
@@ -190,7 +190,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^15.0.0 || ^16.0.0", "@angular/core@^17.0.0", "@angular/core@^17.0.0-rc.0", "@angular/core@^17.0.6", "@angular/core@^6.0.0-rc.0 || ^6.0.0", "@angular/core@>=12.0.0 <17.0.0", "@angular/core@>=15.0.0", "@angular/core@>=16.0.0-0", "@angular/core@>=2.0.0", "@angular/core@>=7.0.0", "@angular/core@17.0.6":
+"@angular/core@^15.0.0 || ^16.0.0", "@angular/core@^17.0.0", "@angular/core@^17.0.0-rc.0", "@angular/core@^17.0.6", "@angular/core@^6.0.0-rc.0 || ^6.0.0", "@angular/core@^8.0.0 || ^9.0.0-0", "@angular/core@>=12.0.0 <17.0.0", "@angular/core@>=15.0.0", "@angular/core@>=16.0.0-0", "@angular/core@>=2.0.0", "@angular/core@17.0.6":
   version "17.0.6"
   resolved "https://registry.npmjs.org/@angular/core/-/core-17.0.6.tgz"
   integrity sha512-QzfKRTDNgGOY9D5VxenUUz20cvPVC+uVw9xiqkDuHgGfLYVFlCAK9ymFYkdUCLTcVzJPxckP+spMpPX8nc4Aqw==
@@ -204,7 +204,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/forms@^17.0.0", "@angular/forms@^17.0.0-rc.0", "@angular/forms@^17.0.6":
+"@angular/forms@^17.0.0", "@angular/forms@^17.0.0-rc.0", "@angular/forms@^17.0.6", "@angular/forms@^8.0.0 || ^9.0.0-0":
   version "17.0.6"
   resolved "https://registry.npmjs.org/@angular/forms/-/forms-17.0.6.tgz"
   integrity sha512-n/trsMtQHUBGiWz5lFaggMcMOuw0gH+96TCtHxQiUYJOdrbOemkFdGrNh3B4fGHmogWuOYJVF5FAm97WRES2XA==
@@ -220,10 +220,10 @@
     fast-glob "3.3.1"
     yargs "^17.2.1"
 
-"@angular/material@^7.3.3", "@angular/material@^7.3.7":
-  version "7.3.7"
-  resolved "https://registry.npmjs.org/@angular/material/-/material-7.3.7.tgz"
-  integrity sha512-Eq+7frkeNGkLOfEtmkmJgR+AgoWajOipXZWWfCSamNfpCcPof82DwvGOpAmgGni9FuN2XFQdqP5MoaffQzIvUA==
+"@angular/material@^7.3.3", "@angular/material@^8.2.3":
+  version "8.2.3"
+  resolved "https://registry.npmjs.org/@angular/material/-/material-8.2.3.tgz"
+  integrity sha512-SOczkIaqes+r+9XF/UUiokidfFKBpHkOPIaFK857sFD0FBNPvPEpOr5oHKCG3feERRwAFqHS7Wo2ohVEWypb5A==
   dependencies:
     tslib "^1.7.1"
 
