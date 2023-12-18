@@ -42,7 +42,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { MatTableDataSource } from '@angular/material/table';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -129,9 +129,6 @@ import { MatTableDataSource } from '@angular/material/table';
     MatTreeModule,
     PortalModule,
     ScrollingModule,
-    MatTableModule,
   ],
 })
 export class MaterialModule { }
-
-export { MatProgressSpinnerModule };

@@ -7,7 +7,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start": "json-server db.json",
-    "proxy": "http://localhost:5000"
+    "proxy": "http://localhost:8000"
   },
   "private": true,
   "dependencies": {
@@ -61,7 +61,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    
+
     "typescript": "^5.3.3"
   }
 }
